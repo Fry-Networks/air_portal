@@ -16,9 +16,9 @@ import MyAlgoConnect from "@randlabs/myalgo-connect";
 import { WalletConnectModalSign } from "@walletconnect/modal-sign-html";
 
 import OpenButton from "./components/OpenButton";
-import { AmbientModal } from "./components/KeyModals/AmbientModal";
-import { EcowittModal } from "./components/KeyModals/EcowittModal";
-import {WeatherXMModal} from "./components/KeyModals/WeatherXMModal";
+import { AirThingsModal } from "./components/KeyModals/AirthingsModal";
+import {PurpleAirModal} from "./components/KeyModals/PurpleAirModal";
+import { W3StreamModal } from "./components/KeyModals/W3StreamModal";
 
 export default function Wallet() {
   const walletProviders = useInitializeProviders({
@@ -43,17 +43,17 @@ export default function Wallet() {
     ],
   });
   const [isModalOpen, setModalIsOpen] = useState(false);
-  const [isEcowittModalOpen, setIsEcowittModalOpen] = useState(false);
-  const [isWeatherXMModalOpen, setIsWeatherXMModalOpen] = useState(false);
+  const [isAirthingsModalOpen, setisAirthingsModalOpen] = useState(false);
+  const [isPurpleAirOpen, setIsPurpleAirOpen] = useState(false);
   const { activeAddress } = useWallet();
   const showModal = () => {
     setModalIsOpen(true);
   };
-  const showEcowittModal = () => {
-    setIsEcowittModalOpen(true);
+  const showAirThingsModal = () => {
+    setisAirthingsModalOpen(true);
   };
-  const showWeatherXMModal = () => {
-    setIsWeatherXMModalOpen(true);
+  const showPurpleAir = () => {
+    setIsPurpleAirOpen(true);
   };
   useEffect(() => {
     if (walletProviders !== null) {
@@ -86,29 +86,29 @@ export default function Wallet() {
         <div style={{ ...cardStyle, width: "100vw" }}>
           <Connect />
           <div style={{flexDirection: "row", display: "flex", justifyContent: "space-evenly"}}>
+            <W3StreamModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
             <OpenButton
               showModal={showModal}
-              text="Ambient"
-              logo="/ambient.png"
-            />
-            <AmbientModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
-            <OpenButton
-              showModal={showEcowittModal}
-              text="Ecowitt / Froggit"
-              logo="/ecowitt.png"
-            />
-            <EcowittModal
-              isOpen={isEcowittModalOpen}
-              setOpen={setIsEcowittModalOpen}
+              text="W3Stream"
+              logo="/w3stream.svg"
             />
             <OpenButton
-            showModal={showWeatherXMModal}
-            text="Weather XM"
-            logo="/weatherxm.png"
+              showModal={showAirThingsModal}
+              text="Airthings"
+              logo="/air-things.png"
+            />
+            <AirThingsModal
+              isOpen={isAirthingsModalOpen}
+              setOpen={setisAirthingsModalOpen}
+            />
+            <OpenButton
+            showModal={showPurpleAir}
+            text="Purple Air"
+            logo="/purple-air.png"
           />
-          <WeatherXMModal
-            isOpen={isWeatherXMModalOpen}
-            setOpen={setIsWeatherXMModalOpen}
+          <PurpleAirModal
+            isOpen={isPurpleAirOpen}
+            setOpen={setIsPurpleAirOpen}
           />
           </div>
           

@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { SubmitWeatherXMKeyButton } from "../SubmitButtons/SubmitWeatherXM";
+import { SubmitPurpleAir } from "../SubmitButtons/SubmitPurpleAir";
 import WeatherXMTokenInput from "../Inputs/WeatherXMTokenInput";
-export function WeatherXMModal({
+import KeyInput from "../Inputs/KeyInput";
+export function PurpleAirModal({
     isOpen,
     setOpen,
   }: {
     isOpen: boolean;
     setOpen: Function;
   }) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [validEmail, setEmailValid] = useState(false);
+    const [apiKey, setApiKey] = useState("");
+    const [validApiKey, setValidApiKey] = useState(false);
     const [validPassword, setPasswordValid] = useState(false);
     const [message, updateMessage] = useState({ message: "", color: "white" });
     const [disappear, setDisappear] = useState(false);
@@ -60,16 +60,16 @@ export function WeatherXMModal({
             alignItems: "center",
           }}
         >
-          {/* <img
-            src={logo}
-            alt="Ambient Weather Logo"
+          <img
+            src={"/purple-air.png"}
+            alt="Purple Air Logo"
             style={{
               width: "70%",
               marginBottom: "20px",
             }}
-          /> */}
+          />
           <h1 style={{ fontSize: "25px" }}>
-            Please enter your Weather XM credentials below:
+            Please enter your PurpleAir credentials below:
           </h1>
           <p style={{ fontSize: "12px", marginBottom: "25px" }}>
             Your credentials allows access to your devices data.
@@ -86,29 +86,16 @@ export function WeatherXMModal({
             . 
           </p>
   
-          <WeatherXMTokenInput
-            token={username}
-            setToken={setUsername}
-            setValid={setEmailValid}
-            disappear={disappear}
-            type="email"
-            inputType='text'
-            placeholder="Enter email"
-          />
-          <WeatherXMTokenInput
-            token={password}
-            setToken={setPassword}
-            setValid={setPasswordValid}
-            disappear={disappear}
-            type="password"
-            inputType='password'
-            placeholder="Enter password"
-          />
+          <KeyInput
+          apiKey={apiKey}
+          setApiKey={setApiKey}
+          setValid={setValidApiKey}
+          disappear={disappear}
+        />
   
-          <SubmitWeatherXMKeyButton
-            valid={validEmail && validPassword}
-            username={username}
-            password={password}
+          <SubmitPurpleAir
+            valid={validApiKey}
+            apiKey={apiKey}
             updateMessage={updateMessage}
             disappearInput={setDisappear}
           />

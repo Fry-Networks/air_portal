@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import KeyInput from "../Inputs/KeyInput";
-import { SubmitKeyButton } from "../SubmitButtons/SubmitAmbient";
+import { SubmitKeyButton } from "../SubmitButtons/SubmitEcowitt";
+import AppKeyInput from "../Inputs/AppKeyInput";
 
 
-const logo =
-  "https://ambientweather.com/media/logo/stores/8/ambientweather-logo2.png";
-export function AmbientModal({
+export function AirThingsModal({
   isOpen,
   setOpen,
 }: {
@@ -14,23 +13,21 @@ export function AmbientModal({
   setOpen: Function;
 }) {
   const [apiKey, setApiKey] = useState("");
+  const [appKey, setAppKey] = useState("");
+  const [appKeyValid, setAppKeyValid] = useState(false);
   const [valid, setValid] = useState(false);
   const [message, updateMessage] = useState({ message: "", color: "white" });
   const [disappear, setDisappear] = useState(false);
+  const [appKeydisappear, setAppKeyDisappear] = useState(false);
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={() => setOpen(false)} // Handle closing of the modal
       style={{
         overlay: {
           backgroundColor: "rgba(0, 0, 0, 0.75)",
-          transition: 'opacity 300ms ease-in-out',
-          animation: "fade 2s linear",
         },
         content: {
           backgroundColor: "RGB(12, 167, 229)",
-          transition: 'opacity 300ms ease-in-out',
-          animation: "fade 2s linear",
           color: "white",
           top: "50%",
           left: "50%",
@@ -67,25 +64,26 @@ export function AmbientModal({
           alignItems: "center",
         }}
       >
+
         <img
-          src={logo}
-          alt="Ambient Weather Logo"
+          src={"/air-things.png"}
+          alt="Air things Logo"
           style={{
             width: "70%",
             marginBottom: "20px",
           }}
         />
         <h1 style={{ fontSize: "25px" }}>
-          Please enter your Ambient Weather API Key below:
+          Please enter your Airthings Weather API  Key below:
         </h1>
         <p style={{ fontSize: "12px", marginBottom: "25px" }}>
-          Your API Key only allows access to your devices data, nothing more.
+          Your API Keys only allows access to your devices data, nothing more.
           You can verify that{" "}
           <a
             style={{
               textDecoration: "underline",
             }}
-            href="https://ambientweather.docs.apiary.io/#reference/0/devices"
+            href="https://doc.ecowitt.net/web/#/apiv3en?page_id=1"
             target="_blank"
           >
             here
@@ -98,11 +96,12 @@ export function AmbientModal({
           setApiKey={setApiKey}
           setValid={setValid}
           disappear={disappear}
-          type="ambient"
         />
 
         <SubmitKeyButton
           valid={valid}
+          appKeyValid={appKeyValid}
+          appKey={appKey}
           apiKey={apiKey}
           updateMessage={updateMessage}
           disappearInput={setDisappear}

@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { useWallet } from "@txnlab/use-wallet";
 import { weatherXMLinkToken } from "@/app/server/Weatherxm";
-export function SubmitWeatherXMKeyButton({
+export function SubmitPurpleAir({
   valid,
-  username,
-  password,
+  apiKey,
   updateMessage,
   disappearInput,
 }: {
   valid: boolean;
-  username: string;
-  password: string;
+  apiKey: string;
   updateMessage: ({
     message,
     color,
@@ -23,8 +21,8 @@ export function SubmitWeatherXMKeyButton({
   const { activeAddress } = useWallet();
   return (
     <button
-      onClick={() =>
-        handleWeatherXMSubmit(username, password, updateMessage, disappearInput, activeAddress!)
+      onClick={() =>{}
+        // handleWeatherXMSubmit(username, password, updateMessage, disappearInput, activeAddress!)
       }
       style={{
         ...buttonStyle,

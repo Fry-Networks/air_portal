@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import KeyInput from "../Inputs/KeyInput";
-import { SubmitKeyButton } from "../SubmitButtons/SubmitEcowitt";
-import AppKeyInput from "../Inputs/AppKeyInput";
+import { SubmitKeyButton } from "../SubmitButtons/SubmitAmbient";
 
 
-export function EcowittModal({
+const logo =
+  "/w3stream.svg";
+export function W3StreamModal({
   isOpen,
   setOpen,
 }: {
@@ -13,21 +14,23 @@ export function EcowittModal({
   setOpen: Function;
 }) {
   const [apiKey, setApiKey] = useState("");
-  const [appKey, setAppKey] = useState("");
-  const [appKeyValid, setAppKeyValid] = useState(false);
   const [valid, setValid] = useState(false);
   const [message, updateMessage] = useState({ message: "", color: "white" });
   const [disappear, setDisappear] = useState(false);
-  const [appKeydisappear, setAppKeyDisappear] = useState(false);
   return (
     <Modal
       isOpen={isOpen}
+      onRequestClose={() => setOpen(false)} // Handle closing of the modal
       style={{
         overlay: {
           backgroundColor: "rgba(0, 0, 0, 0.75)",
+          transition: 'opacity 300ms ease-in-out',
+          animation: "fade 2s linear",
         },
         content: {
           backgroundColor: "RGB(12, 167, 229)",
+          transition: 'opacity 300ms ease-in-out',
+          animation: "fade 2s linear",
           color: "white",
           top: "50%",
           left: "50%",
@@ -64,17 +67,25 @@ export function EcowittModal({
           alignItems: "center",
         }}
       >
+        <img
+          src={logo}
+          alt="Ambient Weather Logo"
+          style={{
+            width: "70%",
+            marginBottom: "20px",
+          }}
+        />
         <h1 style={{ fontSize: "25px" }}>
-          Please enter your Ecowitt Weather API and APP Key below:
+          Please enter your W3Stream API Key below:
         </h1>
         <p style={{ fontSize: "12px", marginBottom: "25px" }}>
-          Your API/APP Keys only allows access to your devices data, nothing more.
+          Your API Key only allows access to your devices data, nothing more.
           You can verify that{" "}
           <a
             style={{
               textDecoration: "underline",
             }}
-            href="https://doc.ecowitt.net/web/#/apiv3en?page_id=1"
+            href="https://ambientweather.docs.apiary.io/#reference/0/devices"
             target="_blank"
           >
             here
@@ -87,20 +98,10 @@ export function EcowittModal({
           setApiKey={setApiKey}
           setValid={setValid}
           disappear={disappear}
-          type="ecowitt"
-        />
-
-        <AppKeyInput
-          appKey={appKey}
-          setAppKey={setAppKey}
-          setValid={setAppKeyValid}
-          disappear={disappear}
         />
 
         <SubmitKeyButton
           valid={valid}
-          appKeyValid={appKeyValid}
-          appKey={appKey}
           apiKey={apiKey}
           updateMessage={updateMessage}
           disappearInput={setDisappear}
