@@ -1,19 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import KeyInput from "../Inputs/KeyInput";
-import { SubmitKeyButton } from "../SubmitButtons/SubmitAmbient";
+import { SubmitImeiButton } from "../SubmitButtons/SubmitPebble";
+import ImeiInput from "../Inputs/ImeiInput";
 
 
 const logo =
-  "/w3stream.svg";
-export function W3StreamModal({
+  "/iotex.svg";
+export function PebbleModal({
   isOpen,
   setOpen,
 }: {
   isOpen: boolean;
   setOpen: Function;
 }) {
-  const [apiKey, setApiKey] = useState("");
+  const [imei, set_imei] = useState("");
   const [valid, setValid] = useState(false);
   const [message, updateMessage] = useState({ message: "", color: "white" });
   const [disappear, setDisappear] = useState(false);
@@ -69,23 +70,27 @@ export function W3StreamModal({
       >
         <img
           src={logo}
-          alt="Ambient Weather Logo"
+          alt="Iotex Logo"
           style={{
-            width: "70%",
+            width: "10%",
             marginBottom: "20px",
           }}
         />
         <h1 style={{ fontSize: "25px" }}>
-          Please enter your W3Stream API Key below:
+          Please enter your Pebble Device IMEI below:
         </h1>
+        <h3 style={{ fontSize: "15px" }}>
+          Your imei on the box in which your device came in.
+          You will have to connect with the wallet you used to register your Pebble Tracker (on the Machine Fi portal) to ensure ownserhip of the device.
+        </h3>
         <p style={{ fontSize: "12px", marginBottom: "25px" }}>
-          Your API Key only allows access to your devices data, nothing more.
-          You can verify that{" "}
+          Your imei only allows access to your devices data, nothing more.
+          You can verify that {" "}
           <a
             style={{
               textDecoration: "underline",
             }}
-            href="https://ambientweather.docs.apiary.io/#reference/0/devices"
+            href="https://docs.iotex.io/dev-toolkit/web3-smart-devices/pebble-tracker/endpoints"
             target="_blank"
           >
             here
@@ -93,16 +98,16 @@ export function W3StreamModal({
           .
         </p>
 
-        <KeyInput
-          apiKey={apiKey}
-          setApiKey={setApiKey}
+        <ImeiInput
+          imei={imei}
+          set_imei={set_imei}
           setValid={setValid}
           disappear={disappear}
         />
 
-        <SubmitKeyButton
+        <SubmitImeiButton
           valid={valid}
-          apiKey={apiKey}
+          imei={imei}
           updateMessage={updateMessage}
           disappearInput={setDisappear}
         />

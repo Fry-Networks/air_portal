@@ -18,7 +18,7 @@ import { WalletConnectModalSign } from "@walletconnect/modal-sign-html";
 import OpenButton from "./components/OpenButton";
 import { AirThingsModal } from "./components/KeyModals/AirthingsModal";
 import {PurpleAirModal} from "./components/KeyModals/PurpleAirModal";
-import { W3StreamModal } from "./components/KeyModals/W3StreamModal";
+import { PebbleModal } from "./components/KeyModals/PebbleModal";
 
 export default function Wallet() {
   const walletProviders = useInitializeProviders({
@@ -86,11 +86,11 @@ export default function Wallet() {
         <div style={{ ...cardStyle, width: "100vw" }}>
           <Connect />
           <div style={{flexDirection: "row", display: "flex", justifyContent: "space-evenly"}}>
-            <W3StreamModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
+            <PebbleModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
             <OpenButton
               showModal={showModal}
-              text="W3Stream"
-              logo="/w3stream.svg"
+              text="Pebble (IOTEX)"
+              logo="/iotex.svg"
             />
             <OpenButton
               showModal={showAirThingsModal}
