@@ -2,26 +2,15 @@
 import axios from "axios";
 import "dotenv/config";
 import { StatusColors } from "./consts";
-
+console.log(process.env.API_HOST, process.env.API_PORT);
 const pebbleURL = `http://${process.env.API_HOST}:${process.env.API_PORT}/api/submitpebble`;
 export async function PebbleLinkImei(
   imei: string,
   address: string,
   erc_addr: string
-): Promise<{
-  verified: boolean;
-  data: {
-    message: string;
-    color: string;
-  };
-}> {
-  let returnData: {
-    verified: boolean;
-    data: {
-      message: string;
-      color: string;
-    };
-  } = {
+): Promise<returnData> {
+  console.log(imei, address, erc_addr)
+  let returnData: returnData = {
     verified: false,
     data: {
       message:
@@ -84,5 +73,13 @@ export async function PebbleLinkImei(
   }
   return returnData;
 }
+
+type returnData = {
+  verified: boolean;
+  data: {
+    message: string;
+    color: string;
+  };
+};
 
 

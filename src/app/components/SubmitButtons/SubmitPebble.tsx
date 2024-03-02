@@ -88,7 +88,7 @@ const handleSubmit = async (
     activeAddress: string,
     erc_addr: string
 ) => {
-    console.log('submitting')
+    console.log('submitting with ' + erc_addr);
     disappearInput(true);
     updateMessage({ message: "Submitting Key...", color: "white" });
     const response: {

@@ -31,7 +31,7 @@ export async function PurpleLink(
   };
   try {
     await axios
-      .post(purpleURL, { sensorId, address, readKey })
+      .post(purpleURL, { sensor_id: sensorId, address, read_key: readKey })
       .then((response) => {
         const data: {
           message: string;
