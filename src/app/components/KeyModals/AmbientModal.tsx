@@ -1,31 +1,36 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
-import { SubmitPurpleAir } from "../SubmitButtons/SubmitPurpleAir";
-import WeatherXMTokenInput from "../Inputs/WeatherXMTokenInput";
 import KeyInput from "../Inputs/KeyInput";
-import PurpleInput from "../Inputs/PurpleInput";
-export function PurpleAirModal({
+import { SubmitKeyButton } from "../SubmitButtons/SubmitAmbient";
+
+
+const logo =
+  "https://ambientweather.com/media/logo/stores/8/ambientweather-logo2.png";
+export function AmbientModal({
   isOpen,
   setOpen,
 }: {
   isOpen: boolean;
   setOpen: Function;
 }) {
-  const [sensorId, setSensorId] = useState("");
-  const [readKey, setReadKey] = useState("");
-  const [sensorValid, setSensorValid] = useState(false);
-  const [readKeyValid, setReadKeyValid] = useState(false);
+  const [apiKey, setApiKey] = useState("");
+  const [valid, setValid] = useState(false);
   const [message, updateMessage] = useState({ message: "", color: "white" });
   const [disappear, setDisappear] = useState(false);
   return (
     <Modal
       isOpen={isOpen}
+      onRequestClose={() => setOpen(false)} // Handle closing of the modal
       style={{
         overlay: {
           backgroundColor: "rgba(0, 0, 0, 0.75)",
+          transition: 'opacity 300ms ease-in-out',
+          animation: "fade 2s linear",
         },
         content: {
           backgroundColor: "RGB(12, 167, 229)",
+          transition: 'opacity 300ms ease-in-out',
+          animation: "fade 2s linear",
           color: "white",
           top: "50%",
           left: "50%",
@@ -63,24 +68,24 @@ export function PurpleAirModal({
         }}
       >
         <img
-          src={"/purple-air.png"}
-          alt="Purple Air Logo"
+          src={logo}
+          alt="Ambient Weather Logo"
           style={{
             width: "70%",
             marginBottom: "20px",
           }}
         />
         <h1 style={{ fontSize: "25px" }}>
-          Please enter your PurpleAir credentials below:
+          Please enter your Ambient Weather API Key below:
         </h1>
         <p style={{ fontSize: "12px", marginBottom: "25px" }}>
-          Your credentials allows access to your devices data.
-          You can verify which information we have access to {" "}
+          Your API Key only allows access to your devices data, nothing more.
+          You can verify that{" "}
           <a
             style={{
               textDecoration: "underline",
             }}
-            href="https://api.purpleair.com/#api-sensors-get-sensor-data"
+            href="https://ambientweather.docs.apiary.io/#reference/0/devices"
             target="_blank"
           >
             here
@@ -88,20 +93,17 @@ export function PurpleAirModal({
           .
         </p>
 
-        <PurpleInput
-          sensorId={sensorId}
-          setSensorId={setSensorId}
-          readKey={readKey}
-          setReadKey={setReadKey}
-          setSensorValid={setSensorValid}
-          setReadKeyValid={setReadKeyValid}
+        <KeyInput
+          apiKey={apiKey}
+          setApiKey={setApiKey}
+          setValid={setValid}
           disappear={disappear}
+          type="ambient"
         />
 
-        <SubmitPurpleAir
-          valid={sensorValid && readKeyValid}
-          sensorId={sensorId}
-          readKey={readKey}
+        <SubmitKeyButton
+          valid={valid}
+          apiKey={apiKey}
           updateMessage={updateMessage}
           disappearInput={setDisappear}
         />

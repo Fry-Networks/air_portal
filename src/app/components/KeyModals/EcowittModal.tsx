@@ -1,22 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
-import { SubmitPurpleAir } from "../SubmitButtons/SubmitPurpleAir";
-import WeatherXMTokenInput from "../Inputs/WeatherXMTokenInput";
 import KeyInput from "../Inputs/KeyInput";
-import PurpleInput from "../Inputs/PurpleInput";
-export function PurpleAirModal({
+import { SubmitKeyButton } from "../SubmitButtons/SubmitEcowitt";
+import AppKeyInput from "../Inputs/AppKeyInput";
+
+
+export function EcowittModal({
   isOpen,
   setOpen,
 }: {
   isOpen: boolean;
   setOpen: Function;
 }) {
-  const [sensorId, setSensorId] = useState("");
-  const [readKey, setReadKey] = useState("");
-  const [sensorValid, setSensorValid] = useState(false);
-  const [readKeyValid, setReadKeyValid] = useState(false);
+  const [apiKey, setApiKey] = useState("");
+  const [appKey, setAppKey] = useState("");
+  const [appKeyValid, setAppKeyValid] = useState(false);
+  const [valid, setValid] = useState(false);
   const [message, updateMessage] = useState({ message: "", color: "white" });
   const [disappear, setDisappear] = useState(false);
+  const [appKeydisappear, setAppKeyDisappear] = useState(false);
   return (
     <Modal
       isOpen={isOpen}
@@ -62,25 +64,17 @@ export function PurpleAirModal({
           alignItems: "center",
         }}
       >
-        <img
-          src={"/purple-air.png"}
-          alt="Purple Air Logo"
-          style={{
-            width: "70%",
-            marginBottom: "20px",
-          }}
-        />
         <h1 style={{ fontSize: "25px" }}>
-          Please enter your PurpleAir credentials below:
+          Please enter your Ecowitt Weather API and APP Key below:
         </h1>
         <p style={{ fontSize: "12px", marginBottom: "25px" }}>
-          Your credentials allows access to your devices data.
-          You can verify which information we have access to {" "}
+          Your API/APP Keys only allows access to your devices data, nothing more.
+          You can verify that{" "}
           <a
             style={{
               textDecoration: "underline",
             }}
-            href="https://api.purpleair.com/#api-sensors-get-sensor-data"
+            href="https://doc.ecowitt.net/web/#/apiv3en?page_id=1"
             target="_blank"
           >
             here
@@ -88,20 +82,26 @@ export function PurpleAirModal({
           .
         </p>
 
-        <PurpleInput
-          sensorId={sensorId}
-          setSensorId={setSensorId}
-          readKey={readKey}
-          setReadKey={setReadKey}
-          setSensorValid={setSensorValid}
-          setReadKeyValid={setReadKeyValid}
+        <KeyInput
+          apiKey={apiKey}
+          setApiKey={setApiKey}
+          setValid={setValid}
+          disappear={disappear}
+          type="ecowitt"
+        />
+
+        <AppKeyInput
+          appKey={appKey}
+          setAppKey={setAppKey}
+          setValid={setAppKeyValid}
           disappear={disappear}
         />
 
-        <SubmitPurpleAir
-          valid={sensorValid && readKeyValid}
-          sensorId={sensorId}
-          readKey={readKey}
+        <SubmitKeyButton
+          valid={valid}
+          appKeyValid={appKeyValid}
+          appKey={appKey}
+          apiKey={apiKey}
           updateMessage={updateMessage}
           disappearInput={setDisappear}
         />

@@ -5,11 +5,13 @@ const KeyInput = ({
   setApiKey,
   setValid,
   disappear,
+  type
 }: {
   apiKey: string;
   setApiKey: Function;
   setValid: Function;
   disappear: boolean;
+  type: string;
 }) => (
   <input
     type="text"
@@ -19,7 +21,13 @@ const KeyInput = ({
     data-form-type="other"
     onChange={(e) => {
       setApiKey(e.target.value);
-      setValid(/^[a-z0-9]{64}$/.test(e.target.value))
+      setValid(
+
+        type === "ambient"
+          ? /^[a-z0-9]{64}$/.test(e.target.value)
+          : e.target.value.length > 0
+
+      )
     }}
     placeholder="Enter your API Key"
     style={keyInputStyle}

@@ -17,8 +17,10 @@ import { WalletConnectModalSign } from "@walletconnect/modal-sign-html";
 
 import OpenButton from "./components/OpenButton";
 import { AirThingsModal } from "./components/KeyModals/AirthingsModal";
-import {PurpleAirModal} from "./components/KeyModals/PurpleAirModal";
+import { PurpleAirModal } from "./components/KeyModals/PurpleAirModal";
 import { PebbleModal } from "./components/KeyModals/PebbleModal";
+import { AmbientModal } from "./components/KeyModals/AmbientModal";
+import { EcowittModal } from "./components/KeyModals/EcowittModal";
 
 export default function Wallet() {
   const walletProviders = useInitializeProviders({
@@ -45,6 +47,8 @@ export default function Wallet() {
   const [isModalOpen, setModalIsOpen] = useState(false);
   const [isAirthingsModalOpen, setisAirthingsModalOpen] = useState(false);
   const [isPurpleAirOpen, setIsPurpleAirOpen] = useState(false);
+  const [isPebbleModalOpen, setPebbleModalIsOpen] = useState(false);
+  const [isEcowittModalOpen, setIsEcowittModalOpen] = useState(false);
   const { activeAddress } = useWallet();
   const showModal = () => {
     setModalIsOpen(true);
@@ -52,8 +56,14 @@ export default function Wallet() {
   const showAirThingsModal = () => {
     setisAirthingsModalOpen(true);
   };
+  const showEcowittModal = () => {
+    setIsEcowittModalOpen(true);
+  };
   const showPurpleAir = () => {
     setIsPurpleAirOpen(true);
+  };
+  const showPebbleModal = () => {
+    setPebbleModalIsOpen(true);
   };
   useEffect(() => {
     if (walletProviders !== null) {
@@ -85,33 +95,53 @@ export default function Wallet() {
       <WalletProvider value={walletProviders}>
         <div style={{ ...cardStyle, width: "100vw" }}>
           <Connect />
-          <div style={{flexDirection: "row", display: "flex", justifyContent: "space-evenly"}}>
-            <PebbleModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
+          <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-evenly" }}>
             <OpenButton
               showModal={showModal}
+              text="Ambient"
+              logo="/ambient.png"
+            />
+            <AmbientModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
+            <OpenButton
+              showModal={showEcowittModal}
+              text="Ecowitt / Froggit / MISOL"
+              logo="/ecowitt.png"
+            />
+            <EcowittModal
+              isOpen={isEcowittModalOpen}
+              setOpen={setIsEcowittModalOpen}
+            />
+            <PebbleModal isOpen={isPebbleModalOpen} setOpen={setPebbleModalIsOpen} />
+            <OpenButton
+              showModal={showPebbleModal}
               text="Pebble (IOTEX)"
               logo="/iotex.svg"
+              size= "150px"
             />
+            {/*
             <OpenButton
               showModal={showAirThingsModal}
               text="Airthings"
               logo="/air-things.png"
             />
+            
             <AirThingsModal
               isOpen={isAirthingsModalOpen}
               setOpen={setisAirthingsModalOpen}
             />
+            */
+            }
             <OpenButton
-            showModal={showPurpleAir}
-            text="Purple Air"
-            logo="/purple-air.png"
-          />
-          <PurpleAirModal
-            isOpen={isPurpleAirOpen}
-            setOpen={setIsPurpleAirOpen}
-          />
+              showModal={showPurpleAir}
+              text="Purple Air"
+              logo="/purple-air.png"
+            />
+            <PurpleAirModal
+              isOpen={isPurpleAirOpen}
+              setOpen={setIsPurpleAirOpen}
+            />
           </div>
-          
+
         </div>
       </WalletProvider>
     </div>

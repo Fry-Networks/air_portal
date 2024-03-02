@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function OpenButton({ showModal, text, logo }: { showModal: Function, text: string, logo: string }) {
+export default function OpenButton({ showModal, text, logo, size = '80%' }: { showModal: Function, text: string, logo: string, size?: string }) {
   return (
     <button onClick={() => showModal(true)} style={buttonStyle}>
       <div style={{ 
@@ -11,7 +11,7 @@ export default function OpenButton({ showModal, text, logo }: { showModal: Funct
         height: '100%'
       }}>
         <img src={logo} alt="logo" style={{ 
-          width: '80%', // Adjust as needed
+          width: size, // Adjust as needed
           height: 'auto',
           marginBottom: '5px' // Space between logo and label
         }} />

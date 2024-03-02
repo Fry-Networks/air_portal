@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
-import KeyInput from "../Inputs/KeyInput";
 import { SubmitImeiButton } from "../SubmitButtons/SubmitPebble";
 import ImeiInput from "../Inputs/ImeiInput";
 

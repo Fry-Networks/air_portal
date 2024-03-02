@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { useWallet } from "@txnlab/use-wallet";
 import { weatherXMLinkToken } from "@/app/server/Weatherxm";
+import { PurpleLink } from "@/app/server/Purple";
 export function SubmitPurpleAir({
   valid,
-  apiKey,
+  sensorId,
+  readKey,
   updateMessage,
   disappearInput,
 }: {
   valid: boolean;
-  apiKey: string;
+  sensorId: string;
+  readKey: string;
   updateMessage: ({
     message,
     color,
@@ -21,8 +24,10 @@ export function SubmitPurpleAir({
   const { activeAddress } = useWallet();
   return (
     <button
-      onClick={() =>{}
-        // handleWeatherXMSubmit(username, password, updateMessage, disappearInput, activeAddress!)
+      onClick={() =>{
+        handlePurpleSubmit(sensorId, readKey, updateMessage, disappearInput, activeAddress!);
+      }
+       
       }
       style={{
         ...buttonStyle,
@@ -37,9 +42,9 @@ export function SubmitPurpleAir({
   );
 }
 
-const handleWeatherXMSubmit = async (
-  username: string,
-  password: string,
+const handlePurpleSubmit = async (
+  sensorId: string,
+  readKey: string,
   updateMessage: ({
     message,
     color,
@@ -55,7 +60,7 @@ const handleWeatherXMSubmit = async (
   const response: {
     verified: boolean;
     data: { message: string; color: string };
-  } = await weatherXMLinkToken(username, password, activeAddress);
+  } = await PurpleLink(activeAddress, sensorId, readKey);
   updateMessage(response.data);
   if (!response.verified) disappearInput(false);
 };
