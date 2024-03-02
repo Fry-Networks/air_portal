@@ -96,6 +96,7 @@ export function AirThingsModal({
           setApiKey={setApiKey}
           setValid={setValid}
           disappear={disappear}
+          type="airthings"
         />
 
         <SubmitKeyButton
