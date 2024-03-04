@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useWallet } from "@txnlab/use-wallet";
-import  {ethers, Provider}  from 'ethers';
+import { ethers, Provider } from 'ethers';
 import { PebbleLinkImei } from "@/app/server/Pebble";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 export function SubmitImeiButton({
     valid,
@@ -20,22 +21,36 @@ export function SubmitImeiButton({
     }) => void;
     disappearInput: Function;
 }) {
+    const isMobileDevice = () => {
+        return (
+            (typeof window.orientation !== "undefined") ||
+            (navigator.userAgent.indexOf('IEMobile') !== -1)
+        );
+    };
+
     const { activeAddress } = useWallet();
     let erc_addr = '';
     const connectWalletHandler = async () => {
-        if (window.ethereum) {
-            try {
+        let provider;
+        try {
+            if (window.ethereum && !isMobileDevice()) {
+
                 await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const provider = new ethers.BrowserProvider(window.ethereum);
+                provider = new ethers.BrowserProvider(window.ethereum);
+            } else {
+                const walletConnectProvider = new WalletConnectProvider({
+                    infuraId: "c3d6c0eb97294d8bbe93d433a2c76f36", // Replace with your Infura Project ID
+                });
+        
+                await walletConnectProvider.enable();
+                provider = new ethers.InfuraProvider('ethereum', 'c3d6c0eb97294d8bbe93d433a2c76f36');
+            }
                 const signer = await provider.getSigner();
                 const account = await signer.getAddress();
                 erc_addr = account;
                 console.log(account);
-            } catch (error) {
-                console.error(error);
-            }
-        } else {
-            console.log('Ethereum object does not exist!');
+        } catch (error) {
+            console.error(error);
         }
     };
 
@@ -44,17 +59,16 @@ export function SubmitImeiButton({
 
     return (
         <button
-            onClick={async () =>
-              { // handleSubmit(imei, updateMessage, disappearInput, activeAddress!)
-               await connectWalletHandler()
-                if(!erc_addr){
+            onClick={async () => { // handleSubmit(imei, updateMessage, disappearInput, activeAddress!)
+                await connectWalletHandler()
+                if (!erc_addr) {
                     console.log('erc_addr is empty');
                     return void updateMessage({ message: "Please connect your erc20 wallet to ensure ownership of your pebble tracker", color: "red" });
                 }
-                else if(activeAddress){
+                else if (activeAddress) {
                     handleSubmit(imei, updateMessage, disappearInput, activeAddress, erc_addr);
-                } 
-                else{
+                }
+                else {
                     return void updateMessage({ message: "Please connect your wallet", color: "red" });
                 }
             }
