@@ -4,6 +4,7 @@ import Wallet from './wallet';
 import Navbar from './components/Navbar'
 import { useEffect } from 'react';
 import Modal from 'react-modal';
+
 export default function Home() {
   useEffect(() => {
     Modal.setAppElement('#home');

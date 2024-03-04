@@ -21,6 +21,9 @@ import { PurpleAirModal } from "./components/KeyModals/PurpleAirModal";
 import { PebbleModal } from "./components/KeyModals/PebbleModal";
 import { AmbientModal } from "./components/KeyModals/AmbientModal";
 import { EcowittModal } from "./components/KeyModals/EcowittModal";
+import { Chain, mainnet } from "wagmi/chains";
+import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi";
+import { WagmiConfig } from "wagmi";
 
 export default function Wallet() {
   const walletProviders = useInitializeProviders({
@@ -49,7 +52,34 @@ export default function Wallet() {
   const [isPurpleAirOpen, setIsPurpleAirOpen] = useState(false);
   const [isPebbleModalOpen, setPebbleModalIsOpen] = useState(false);
   const [isEcowittModalOpen, setIsEcowittModalOpen] = useState(false);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setReady(true);
+  }, []);
   const { activeAddress } = useWallet();
+
+  const projectId = "74761852c2f607c540bb116a1bc9f011"
+
+  const chains: readonly [Chain, ...Chain[]] = [
+    mainnet
+  ];
+
+  const metadata = {
+    name: "Next Starter Template",
+    description: "A Next.js starter template with Web3Modal v3 + Wagmi",
+    url: "https://web3modal.com",
+    icons: ["https://avatars.githubusercontent.com/u/37784886"],
+  };
+
+  const wagmiConfig = defaultWagmiConfig({ projectId, metadata, chains });
+
+  createWeb3Modal({ wagmiConfig, projectId });
+
+
+
+
+
+
   const showModal = () => {
     setModalIsOpen(true);
   };
@@ -77,11 +107,13 @@ export default function Wallet() {
           ...containerStyle,
         }}
       >
-        <WalletProvider value={walletProviders}>
-          <div style={{ ...cardStyle }}>
-            <Connect />
-          </div>
-        </WalletProvider>
+        <WagmiConfig config={wagmiConfig}>
+          <WalletProvider value={walletProviders}>
+            <div style={{ ...cardStyle }}>
+              <Connect />
+            </div>
+          </WalletProvider>
+        </WagmiConfig>
       </div>
     );
   }
@@ -92,6 +124,7 @@ export default function Wallet() {
         ...containerStyle,
       }}
     >
+      <WagmiConfig config={wagmiConfig}>
       <WalletProvider value={walletProviders}>
         <div style={{ ...cardStyle, width: "100vw" }}>
           <Connect />
@@ -116,7 +149,7 @@ export default function Wallet() {
               showModal={showPebbleModal}
               text="Pebble (IOTEX)"
               logo="/iotex.svg"
-              size= "150px"
+              size="150px"
             />
             {/*
             <OpenButton
@@ -144,6 +177,7 @@ export default function Wallet() {
 
         </div>
       </WalletProvider>
+      </WagmiConfig>
     </div>
   );
 }
