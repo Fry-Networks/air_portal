@@ -21,7 +21,7 @@ import { PurpleAirModal } from "./components/KeyModals/PurpleAirModal";
 import { PebbleModal } from "./components/KeyModals/PebbleModal";
 import { AmbientModal } from "./components/KeyModals/AmbientModal";
 import { EcowittModal } from "./components/KeyModals/EcowittModal";
-import { Chain, mainnet } from "wagmi/chains";
+import { Chain, mainnet, iotex } from "wagmi/chains";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi";
 import { WagmiConfig } from "wagmi";
 
@@ -61,7 +61,9 @@ export default function Wallet() {
   const projectId = "74761852c2f607c540bb116a1bc9f011"
 
   const chains: readonly [Chain, ...Chain[]] = [
-    mainnet
+    mainnet,
+    iotex
+    
   ];
 
   const metadata = {
