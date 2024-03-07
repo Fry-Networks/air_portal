@@ -73,7 +73,19 @@ export function PurpleAirModal({
         <h1 style={{ fontSize: "25px" }}>
           Please enter your PurpleAir credentials below:
         </h1>
-        <p style={{ fontSize: "12px", marginBottom: "25px" }}>
+        
+        <p style={{ fontSize: "15px", marginBottom: "25px", textAlign: "center" }}>
+        Please create your READ-KEY on this {" "}
+          <a
+            style={{
+              textDecoration: "underline",
+            }}
+            href="https://develop.purpleair.com/keys"
+            target="_blank"
+          >
+            link
+          </a>
+          <br />
           Your credentials allows access to your devices data.
           You can verify which information we have access to {" "}
           <a
