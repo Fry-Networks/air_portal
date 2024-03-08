@@ -58,7 +58,7 @@ export function SubmitImeiButton({
 
 
             <div style={{ display: "flex", flexDirection: "column" }}>
-                <w3m-button></w3m-button>
+                <w3m-button label="Connect Iotex Wallet"></w3m-button>
                 <button
                     onClick={async () => { // handleSubmit(imei, updateMessage, disappearInput, activeAddress!)
                         await connectWalletHandler()
