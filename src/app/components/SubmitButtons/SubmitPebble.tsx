@@ -1,16 +1,8 @@
-import React, { Component, useState } from "react";
-import { useWallet } from "@txnlab/use-wallet";
 import { PebbleLinkImei } from "@/app/server/Pebble";
-import { createWeb3Modal } from "@web3modal/wagmi/react";
+import { useWallet } from "@txnlab/use-wallet";
+import { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 import '../../globals.css';
-import { WagmiConfig, useAccount } from "wagmi";
-import { useEffect } from "react";
-import {
-
-    Chain,
-    mainnet
-} from "wagmi/chains";
-import { defaultWagmiConfig } from "@web3modal/wagmi";
 const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 export function SubmitImeiButton({
     valid,
@@ -46,7 +38,7 @@ export function SubmitImeiButton({
     
     const connectWalletHandler = async () => {
         console.log(address)
-       erc_addr = address as string;
+        erc_addr = address as string;
 
     };
 
@@ -58,7 +50,7 @@ export function SubmitImeiButton({
 
 
             <div style={{ display: "flex", flexDirection: "column" }}>
-                <w3m-button label="Connect Iotex Wallet"></w3m-button>
+                {/* <w3m-button label="Connect Iotex Wallet"></w3m-button> */}
                 <button
                     onClick={async () => { // handleSubmit(imei, updateMessage, disappearInput, activeAddress!)
                         await connectWalletHandler()

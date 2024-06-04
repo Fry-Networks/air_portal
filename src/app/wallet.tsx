@@ -1,29 +1,32 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { DeflyWalletConnect } from "@blockshake/defly-connect";
+import { DaffiWalletConnect } from "@daffiwallet/connect";
+import { PeraWalletConnect } from "@perawallet/connect";
+import MyAlgoConnect from "@randlabs/myalgo-connect";
 import {
+  PROVIDER_ID,
+  WalletProvider,
   reconnectProviders,
   useInitializeProviders,
-  WalletProvider,
-  PROVIDER_ID,
-  algosigner,
   useWallet,
 } from "@txnlab/use-wallet";
-import Connect from "./components/Connect";
-import { DeflyWalletConnect } from "@blockshake/defly-connect";
-import { PeraWalletConnect } from "@perawallet/connect";
-import { DaffiWalletConnect } from "@daffiwallet/connect";
-import MyAlgoConnect from "@randlabs/myalgo-connect";
 import { WalletConnectModalSign } from "@walletconnect/modal-sign-html";
+import { useEffect, useState } from "react";
+import Connect from "./components/Connect";
 
-import OpenButton from "./components/OpenButton";
-import { AirThingsModal } from "./components/KeyModals/AirthingsModal";
-import { PurpleAirModal } from "./components/KeyModals/PurpleAirModal";
-import { PebbleModal } from "./components/KeyModals/PebbleModal";
-import { AmbientModal } from "./components/KeyModals/AmbientModal";
-import { EcowittModal } from "./components/KeyModals/EcowittModal";
-import { Chain, mainnet, iotex } from "wagmi/chains";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi";
 import { WagmiConfig } from "wagmi";
+import { Chain, iotex, mainnet } from "wagmi/chains";
+import { AirThingsModal } from "./components/KeyModals/AirthingsModal";
+import { AmbientModal } from "./components/KeyModals/AmbientModal";
+import { AtmotubeModal } from "./components/KeyModals/AtmotubeModal";
+import { AwairModal } from "./components/KeyModals/AwairModal";
+import { EcowittModal } from "./components/KeyModals/EcowittModal";
+import { KaiterraModal } from "./components/KeyModals/KaiterraModal";
+import { NrfModal } from "./components/KeyModals/NrfModal";
+import { PebbleModal } from "./components/KeyModals/PebbleModal";
+import { PurpleAirModal } from "./components/KeyModals/PurpleAirModal";
+import OpenButton from "./components/OpenButton";
 
 export default function Wallet() {
   const walletProviders = useInitializeProviders({
@@ -51,20 +54,20 @@ export default function Wallet() {
   const [isAirthingsModalOpen, setisAirthingsModalOpen] = useState(false);
   const [isPurpleAirOpen, setIsPurpleAirOpen] = useState(false);
   const [isPebbleModalOpen, setPebbleModalIsOpen] = useState(false);
+  const [isNrfModalOpen, setNrfModalIsOpen] = useState(false);
   const [isEcowittModalOpen, setIsEcowittModalOpen] = useState(false);
+  const [isAtmotubeModalOpen, setAtmotubeModalIsOpen] = useState(false);
+  const [isAwairModalOpen, setAwairModalIsOpen] = useState(false);
+  const [isKaiterraModalOpen, setKaiterraModalIsOpen] = useState(false);
   const [ready, setReady] = useState(false);
   useEffect(() => {
     setReady(true);
   }, []);
   const { activeAddress } = useWallet();
 
-  const projectId = "74761852c2f607c540bb116a1bc9f011"
+  const projectId = "74761852c2f607c540bb116a1bc9f011";
 
-  const chains: readonly [Chain, ...Chain[]] = [
-    mainnet,
-    iotex
-    
-  ];
+  const chains: readonly [Chain, ...Chain[]] = [mainnet, iotex];
 
   const metadata = {
     name: "Next Starter Template",
@@ -76,11 +79,6 @@ export default function Wallet() {
   const wagmiConfig = defaultWagmiConfig({ projectId, metadata, chains });
 
   createWeb3Modal({ wagmiConfig, projectId });
-
-
-
-
-
 
   const showModal = () => {
     setModalIsOpen(true);
@@ -97,6 +95,18 @@ export default function Wallet() {
   const showPebbleModal = () => {
     setPebbleModalIsOpen(true);
   };
+  const showNrfModal = () => {
+    setNrfModalIsOpen(true);
+  };
+  const showAwairModal = () => {
+    setAwairModalIsOpen(true);
+  };
+  const showKaiterraModal = () => {
+    setKaiterraModalIsOpen(true);
+  };
+  const showAtmotubeModal = () => {
+    setAtmotubeModalIsOpen(true);
+  };
   useEffect(() => {
     if (walletProviders !== null) {
       reconnectProviders(walletProviders);
@@ -104,14 +114,10 @@ export default function Wallet() {
   }, []);
   if (!activeAddress) {
     return (
-      <div
-        style={{
-          ...containerStyle,
-        }}
-      >
+      <div className="flex justify-center items-center text-center text-white w-[90vw] bg-[#201c1c] m-auto p-5">
         <WagmiConfig config={wagmiConfig}>
           <WalletProvider value={walletProviders}>
-            <div style={{ ...cardStyle }}>
+            <div className="flex flex-col p-5 bg-[#84808a] rounded-[10px] w-[90vw] shadow-md">
               <Connect />
             </div>
           </WalletProvider>
@@ -121,87 +127,102 @@ export default function Wallet() {
   }
 
   return (
-    <div
-      style={{
-        ...containerStyle,
-      }}
-    >
-      <WagmiConfig config={wagmiConfig}>
+    <div className="flex justify-center items-center text-center text-white w-[90vw] bg-[#201c1c] m-auto p-5">
       <WalletProvider value={walletProviders}>
-        <div style={{ ...cardStyle, width: "100vw" }}>
+        <div className="flex flex-col p-5 bg-[#84808a] rounded-[10px] w-[100vw] shadow-md">
           <Connect />
-          <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-evenly" }}>
-            <OpenButton
-              showModal={showModal}
-              text="Ambient"
-              logo="/ambient.png"
-            />
-            <AmbientModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
-            <OpenButton
-              showModal={showEcowittModal}
-              text="Ecowitt / Froggit / MISOL"
-              logo="/ecowitt.png"
-            />
-            <EcowittModal
-              isOpen={isEcowittModalOpen}
-              setOpen={setIsEcowittModalOpen}
-            />
-            <PebbleModal isOpen={isPebbleModalOpen} setOpen={setPebbleModalIsOpen} />
-            <OpenButton
-              showModal={showPebbleModal}
-              text="Pebble (IOTEX)"
-              logo="/iotex.svg"
-              size="150px"
-            />
-            {/*
-            <OpenButton
+          <div className="flex justify-center items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              <OpenButton
+                showModal={showModal}
+                text="Ambient"
+                logo="/ambient.png"
+              />
+              <AmbientModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
+
+              <OpenButton
+                showModal={showEcowittModal}
+                text="Ecowitt / Froggit / MISOL"
+                logo="/ecowitt.png"
+              />
+              <EcowittModal
+                isOpen={isEcowittModalOpen}
+                setOpen={setIsEcowittModalOpen}
+              />
+
+              <PebbleModal
+                isOpen={isPebbleModalOpen}
+                setOpen={setPebbleModalIsOpen}
+              />
+              <OpenButton
+                showModal={showPebbleModal}
+                text="Pebble (IOTEX)"
+                logo="/iotex.svg"
+                size="150px"
+              />
+
+
+              
+              <OpenButton
               showModal={showAirThingsModal}
               text="Airthings"
               logo="/air-things.png"
-            />
-            
-            <AirThingsModal
+              />
+              <AirThingsModal
               isOpen={isAirthingsModalOpen}
               setOpen={setisAirthingsModalOpen}
-            />
-            */
-            }
-            <OpenButton
-              showModal={showPurpleAir}
-              text="Purple Air"
-              logo="/purple-air.png"
-            />
-            <PurpleAirModal
-              isOpen={isPurpleAirOpen}
-              setOpen={setIsPurpleAirOpen}
-            />
-          </div>
+              />
+             
 
+              <OpenButton
+                showModal={showPurpleAir}
+                text="Purple Air"
+                logo="/purple-air.png"
+              />
+              <PurpleAirModal
+                isOpen={isPurpleAirOpen}
+                setOpen={setIsPurpleAirOpen}
+              />
+
+              <NrfModal isOpen={isNrfModalOpen} setOpen={setNrfModalIsOpen} />
+              <OpenButton
+                showModal={showNrfModal}
+                text="Nrf"
+                logo="/Nrf.png"
+                size="48"
+              />
+
+              <OpenButton
+                showModal={showAwairModal}
+                text="Awair"
+                logo="/awair.png"
+              />
+              <AwairModal
+                isOpen={isAwairModalOpen}
+                setOpen={setAwairModalIsOpen}
+              />
+              <OpenButton
+                showModal={showKaiterraModal}
+                text="Kaiterra"
+                logo="/Kaiterra.png"
+              />
+              <KaiterraModal
+                isOpen={isKaiterraModalOpen}
+                setOpen={setKaiterraModalIsOpen}
+              />
+              <OpenButton
+                showModal={showAtmotubeModal}
+                text="Atmotube"
+                logo="/Atmotube.png"
+              />
+              <AtmotubeModal
+                isOpen={isAtmotubeModalOpen}
+                setOpen={setAtmotubeModalIsOpen}
+              />
+            </div>
+          </div>
         </div>
       </WalletProvider>
-      </WagmiConfig>
     </div>
   );
 }
-
-const containerStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  textAlign: "center",
-  color: "white",
-  background: "rgb(28, 28, 28)",
-  padding: "20px",
-  margin: "auto",
-  width: "90vw", // This will set the width to be the viewport width minus 40px
-} as const;
-
-const cardStyle = {
-  display: "flex",
-  flexDirection: "column",
-  padding: "20px",
-  background: "#84808a",
-  borderRadius: "10px",
-  boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)",
-  width: "90vw", // This will set the width to be the parent width (which is the modified viewport width) minus 40px
-} as const;
