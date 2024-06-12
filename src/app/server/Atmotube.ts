@@ -11,6 +11,7 @@ export async function submitAtmotubeKey(
 const submitUrl = `http://${process.env.API_HOST}:${process.env.API_PORT}/api/submitAtmotube`;
 
   try {
+
     const response = await axios.post(submitUrl, {
       token,
       deviceId,

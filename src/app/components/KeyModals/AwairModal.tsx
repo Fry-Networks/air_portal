@@ -57,11 +57,9 @@ export const AwairModal: React.FC<AwairModalProps> = ({
         />
 
         <SubmitAwairKeyButton
-          // valid={true}
           updateMessage={updateMessage}
           token={token}
           deviceId={deviceId}
-          // updateMessage={updateMessage}
           disappearInput={setDisappear}
         />
 

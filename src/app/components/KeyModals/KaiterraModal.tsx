@@ -57,11 +57,9 @@ export const KaiterraModal: React.FC<KaiterraModalProps> = ({
         />
 
         <SubmitKaiterraKeyButton
-          // valid={true}
           updateMessage={updateMessage}
           token={token}
           deviceId={deviceId}
-          // updateMessage={updateMessage}
           disappearInput={setDisappear}
         />
 

@@ -1,34 +1,21 @@
-const AwairInput = ({
-    token,
-    setToken,
-    setValid,
-    disappear,
-    placeholder,
-    inputType,
-    type
-  }: {
-    token: string;
-    setToken: Function;
-    setValid?: Function;
-    disappear?: boolean;
-    placeholder: string;
-    inputType: string;
-    type?: "authkey" | "id";
-  }) => {
+interface IAwairInput {
+  token: string;
+  setToken: (token: string) => void;
+  setValid?: (isValid: boolean) => void;
+  disappear?: boolean;
+  placeholder: string;
+  inputType: string;
+}
 
-    // const isValidKey = (key: string) => {
-    //   if (type === "authkey") {
-    //     return /^[a-zA-Z0-9]{92}$/i.test(key);
-    //   } else if (type === "id") {
-    //     return /^[0-9a-f]{12}$/i.test(key);
-    //   }
-    //   else if (type === "server") {
-    //     return /^https:\/\/[a-zA-Z0-9-]+\.shelly\.cloud$/i.test(key);
-    //   }
-    //   return false;
-    // };
+const AwairInput: React.FC<IAwairInput> = ({
+  token,
+  setToken,
+  disappear,
+  placeholder,
+  inputType,
+}) => {
 
-    return(
+  return (
     <input
       type={inputType}
       value={token}
@@ -38,9 +25,6 @@ const AwairInput = ({
       onChange={(e) => {
         const newToken = e.target.value;
         setToken(newToken);
-        // if (setValid) {
-          // setValid(isValidKey(newToken));
-        // }
       }}
       placeholder={placeholder}
       className={`${
@@ -49,6 +33,5 @@ const AwairInput = ({
     />
   );
 }
-  
-  export default AwairInput;
-  
+
+export default AwairInput;
