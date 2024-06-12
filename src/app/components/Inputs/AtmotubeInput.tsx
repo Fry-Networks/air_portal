@@ -16,17 +16,15 @@ const AtmotubeInput = ({
     type?: "authkey" | "id";
   }) => {
   
-    // const isValidKey = (key: string) => {
-    //   if (type === "authkey") {
-    //     return /^[a-zA-Z0-9]{92}$/i.test(key);
-    //   } else if (type === "id") {
-    //     return /^[0-9a-f]{12}$/i.test(key);
-    //   }
-    //   else if (type === "server") {
-    //     return /^https:\/\/[a-zA-Z0-9-]+\.shelly\.cloud$/i.test(key);
-    //   }
-    //   return false;
-    // };
+    const isValidKey = (key: string) => {
+      if (type === "authkey") {
+        return /^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$/i.test(key);
+      } else if (type === "id") {
+        return /^([0-9A-Za-z]{2}:){5}[0-9A-Za-z]{2}$/i.test(key);
+      }
+      return false;
+    };
+
   
     return(
     <input
@@ -38,9 +36,9 @@ const AtmotubeInput = ({
       onChange={(e) => {
         const newToken = e.target.value;
         setToken(newToken);
-        // if (setValid) {
-          // setValid(isValidKey(newToken));
-        // }
+        if (setValid) {
+          setValid(isValidKey(newToken));
+        }
       }}
       placeholder={placeholder}
       className={`${

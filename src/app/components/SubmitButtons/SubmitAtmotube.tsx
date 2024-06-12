@@ -16,6 +16,10 @@ export function SubmitAtmotubeKeyButton({
   const [isLoading, setIsLoading] = useState(false);
   const { activeAddress } = useWallet();
 
+  const isValidToken = /^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$/i.test(token);
+  const isValidDevice = /^([0-9A-Za-z]{2}:){5}[0-9A-Za-z]{2}$/i.test(deviceId);
+  const isValidKeys = isValidToken && isValidDevice;
+
 
   const handleAtmotubeKeySubmit = async () => {
     setIsLoading(true);
@@ -40,9 +44,9 @@ export function SubmitAtmotubeKeyButton({
     <button
       onClick={handleAtmotubeKeySubmit}
       className={`py-4 px-6 text-base font-medium rounded-lg focus:outline-none ${
-        isLoading ? "bg-gray-400 cursor-wait" : "bg-[#00FFFF] hover:bg-cyan-700"
+        isValidKeys ? "bg-[#00FFFF] cursor-pointer" : "bg-gray-400 cursor-not-allowed"
       }`}
-      disabled={isLoading}
+      disabled={!isValidKeys}
     >
       {isLoading ? "Submitting..." : "Submit Atmotube Key"}
     </button>

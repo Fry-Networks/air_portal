@@ -47,12 +47,14 @@ export const AtmotubeModal: React.FC<AtmotubeModalProps> = ({
           token={deviceId}
           setToken={setDeviceId}
           inputType="id"
+          type="id"
           placeholder="Enter Device Id"
         />
         <AtmotubeInput
           token={token}
           setToken={setToken}
-          inputType="server"
+          inputType="auth"
+          type="authkey"
           placeholder="Enter Token"
         />
 

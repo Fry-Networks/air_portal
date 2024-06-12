@@ -22,6 +22,10 @@ export function SubmitNrfKeyButton({
   const [isLoading, setIsLoading] = useState(false);
   const { activeAddress } = useWallet();
 
+  const isValidToken = /[A-Za-z0-9]{40}$/i.test(token);
+  const isValidDevice = /nrf-\d{15}$/i.test(deviceId);
+  const isValidKeys = isValidToken && isValidDevice;
+
 
   const handleNrfKeySubmit = async () => {
     setIsLoading(true);
@@ -52,9 +56,9 @@ export function SubmitNrfKeyButton({
     <button
       onClick={handleNrfKeySubmit}
       className={`py-4 px-6 text-base font-medium rounded-lg focus:outline-none ${
-        isLoading ? "bg-gray-400 cursor-wait" : "bg-[#00FFFF] hover:bg-cyan-700"
+        isValidKeys ? "bg-[#00FFFF] cursor-pointer" : "bg-gray-400 cursor-not-allowed"
       }`}
-      disabled={isLoading}
+      disabled={!isValidKeys}
     >
       {isLoading ? "Submitting..." : "Submit Nrf Key"}
     </button>
