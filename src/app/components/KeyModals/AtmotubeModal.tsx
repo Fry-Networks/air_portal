@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import AtmotubeInput from "../Inputs/AtmotubeInput";
-import { SubmitAtmotubeKeyButton } from "../SubmitButtons/SubmitAtmotube";
+import SubmitAtmotubeKeyButton from "../SubmitButtons/SubmitAtmotube";
+import Typography from "../Typography";
 
 interface AtmotubeModalProps {
   isOpen: boolean;
@@ -40,36 +41,30 @@ export const AtmotubeModal: React.FC<AtmotubeModalProps> = ({
         </button>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-[25px] mb-4">
-          Please enter Atmotube credentials below:
-        </h1>
+        <Typography>Please enter Atmotube credentials below:</Typography>
         <AtmotubeInput
           token={deviceId}
           setToken={setDeviceId}
           inputType="id"
-          type="id"
           placeholder="Enter Device Id"
         />
         <AtmotubeInput
           token={token}
           setToken={setToken}
           inputType="auth"
-          type="authkey"
           placeholder="Enter Token"
         />
 
         <SubmitAtmotubeKeyButton
-          // valid={true}
           updateMessage={updateMessage}
           token={token}
           deviceId={deviceId}
-          // updateMessage={updateMessage}
           disappearInput={setDisappear}
         />
 
-        <p className={'text-white text-center text-[17px] mt-10 font-bold'}>
+        <Typography variant="p" className={'text-white text-center mt-10 font-bold'}>
           {message}
-        </p>
+        </Typography>
       </div>
     </Modal>
   );

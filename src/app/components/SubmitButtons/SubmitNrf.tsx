@@ -1,24 +1,20 @@
 import { submitNrfKey } from "@/app/server/Nrf";
 import { useWallet } from "@txnlab/use-wallet";
 import { useState } from "react";
+import Button from "../Button";
+interface SubmitNrfKeyButtonProps {
+  token: string;
+  deviceId: string;
+  updateMessage: (message: string) => void;
+  disappearInput: (flag: boolean) => void;
+}
 
-export function SubmitNrfKeyButton({
+const SubmitNrfKeyButton: React.FC<SubmitNrfKeyButtonProps> = ({
   token,
   deviceId,
   updateMessage,
   disappearInput,
-}: {
-  token: string;
-  deviceId: string;
-  updateMessage: ({
-    message,
-    color,
-  }: {
-    message: string;
-    color: string;
-  }) => void;
-  disappearInput: (flag: boolean) => void;
-}) {
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const { activeAddress } = useWallet();
 
@@ -26,26 +22,20 @@ export function SubmitNrfKeyButton({
   const isValidDevice = /nrf-\d{15}$/i.test(deviceId);
   const isValidKeys = isValidToken && isValidDevice;
 
-
   const handleNrfKeySubmit = async () => {
     setIsLoading(true);
     disappearInput(true);
-    updateMessage({ message: "Submitting Key...", color: "white" });
+    updateMessage("Submitting Key...");
 
     try {
-      const payload ={token,deviceId,activeAddress}
-      console.log({payload})
+      const payload = { token, deviceId, activeAddress };
+      console.log({ payload });
 
-      const response = await submitNrfKey(token,deviceId,activeAddress! );
-      //@ts-ignore
-      updateMessage(response?.data);
+      const response = await submitNrfKey(token, deviceId, activeAddress!);
+      updateMessage(response?.message);
     } catch (error) {
       console.error("Error submitting Nrf key:", error);
-
-      updateMessage({
-        message: "Error submitting API key.",
-        color: "red",
-      });
+      updateMessage("Error submitting Atmotube key.");
     } finally {
       setIsLoading(false);
       disappearInput(false);
@@ -53,14 +43,14 @@ export function SubmitNrfKeyButton({
   };
 
   return (
-    <button
-      onClick={handleNrfKeySubmit}
-      className={`py-4 px-6 text-base font-medium rounded-lg focus:outline-none ${
-        isValidKeys ? "bg-[#00FFFF] cursor-pointer" : "bg-gray-400 cursor-not-allowed"
-      }`}
-      disabled={!isValidKeys}
-    >
-      {isLoading ? "Submitting..." : "Submit Nrf Key"}
-    </button>
+    <Button
+    onClick={handleNrfKeySubmit}
+    isValid={isValidKeys}
+    isLoading={isLoading}
+    text="Submit Nrf Key"
+    loadingText="Submitting..."
+  />
   );
-}
+};
+
+export default SubmitNrfKeyButton;

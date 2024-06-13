@@ -5,26 +5,15 @@ interface IAtmotubeInput {
   disappear?: boolean;
   placeholder: string;
   inputType: string;
-  type?: "authkey" | "id";
 }
 
 const AtmotubeInput: React.FC<IAtmotubeInput> = ({
   token,
   setToken,
-  setValid,
   disappear,
   placeholder,
   inputType,
-  type
 }) => {
-  const isValidKey = (key: string) => {
-    if (type === "authkey") {
-      return /^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$/i.test(key);
-    } else if (type === "id") {
-      return /^([0-9A-Za-z]{2}:){5}[0-9A-Za-z]{2}$/i.test(key);
-    }
-    return false;
-  };
 
   return (
     <input
@@ -33,13 +22,7 @@ const AtmotubeInput: React.FC<IAtmotubeInput> = ({
       autoComplete="off"
       data-lpignore="true"
       data-form-type="other"
-      onChange={(e) => {
-        const newToken = e.target.value;
-        setToken(newToken);
-        if (setValid) {
-          setValid(isValidKey(newToken));
-        }
-      }}
+      onChange={(e) => { setToken(e.target.value)}}
       placeholder={placeholder}
       className={`${
         disappear ? "opacity-0" : ""

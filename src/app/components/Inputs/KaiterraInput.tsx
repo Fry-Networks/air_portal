@@ -22,10 +22,7 @@ const KaiterraInput: React.FC<IKaiterraInput> = ({
       autoComplete="off"
       data-lpignore="true"
       data-form-type="other"
-      onChange={(e) => {
-        const newToken = e.target.value;
-        setToken(newToken);
-      }}
+      onChange={(e) => { setToken(e.target.value)}}
       placeholder={placeholder}
       className={`${
         disappear ? "opacity-0" : ""

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import AwairInput from "../Inputs/AwairInput";
-import { SubmitAwairKeyButton } from "../SubmitButtons/SubmitAwair";
+import SubmitAwairKeyButton from "../SubmitButtons/SubmitAwair";
+import Typography from "../Typography";
 
 interface AwairModalProps {
   isOpen: boolean;
@@ -40,9 +41,7 @@ export const AwairModal: React.FC<AwairModalProps> = ({
         </button>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-[25px] mb-4">
-          Please enter Awair credentials below:
-        </h1>
+        <Typography className="mb-3" variant="title">Please enter Awair credentials below:</Typography>
         <AwairInput
           token={deviceId}
           setToken={setDeviceId}
@@ -63,9 +62,9 @@ export const AwairModal: React.FC<AwairModalProps> = ({
           disappearInput={setDisappear}
         />
 
-        <p className={'text-white text-center text-[17px] mt-10 font-bold'}>
+        <Typography variant="p" className={'text-white text-center mt-10 font-bold'}>
           {message}
-        </p>
+        </Typography>
       </div>
     </Modal>
   );

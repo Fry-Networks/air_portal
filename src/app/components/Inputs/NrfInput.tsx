@@ -15,19 +15,6 @@ const NrfInput = ({
     inputType: string;
     type?: "authkey" | "id";
   }) => {
-
-    // const isValidKey = (key: string) => {
-    //   if (type === "authkey") {
-    //     return /^[a-zA-Z0-9]{92}$/i.test(key);
-    //   } else if (type === "id") {
-    //     return /^[0-9a-f]{12}$/i.test(key);
-    //   }
-    //   else if (type === "server") {
-    //     return /^https:\/\/[a-zA-Z0-9-]+\.shelly\.cloud$/i.test(key);
-    //   }
-    //   return false;
-    // };
-
     return(
     <input
       type={inputType}
@@ -35,13 +22,7 @@ const NrfInput = ({
       autoComplete="off"
       data-lpignore="true"
       data-form-type="other"
-      onChange={(e) => {
-        const newToken = e.target.value;
-        setToken(newToken);
-        // if (setValid) {
-          // setValid(isValidKey(newToken));
-        // }
-      }}
+      onChange={(e) => { setToken(e.target.value)}}
       placeholder={placeholder}
       className={`${
         disappear ? "opacity-0" : ""

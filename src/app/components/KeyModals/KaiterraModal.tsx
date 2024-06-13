@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import KaiterraInput from "../Inputs/KaiterraInput";
-import { SubmitKaiterraKeyButton } from "../SubmitButtons/SubmitKaiterra";
+import SubmitKaiterraKeyButton from "../SubmitButtons/SubmitKaiterra";
+import Typography from "../Typography";
 
 interface KaiterraModalProps {
   isOpen: boolean;
@@ -40,9 +41,9 @@ export const KaiterraModal: React.FC<KaiterraModalProps> = ({
         </button>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-[25px] mb-4">
+        <Typography className="mb-3" variant="title">
           Please enter Kaiterra credentials below:
-        </h1>
+        </Typography>
         <KaiterraInput
           token={deviceId}
           setToken={setDeviceId}
@@ -63,9 +64,9 @@ export const KaiterraModal: React.FC<KaiterraModalProps> = ({
           disappearInput={setDisappear}
         />
 
-        <p className={'text-white text-center text-[17px] mt-10 font-bold'}>
+        <Typography variant="p" className={'text-white text-center mt-10 font-bold'}>
           {message}
-        </p>
+        </Typography>
       </div>
     </Modal>
   );

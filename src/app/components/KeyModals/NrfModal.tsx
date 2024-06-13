@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Modal from "react-modal";
 import NrfInput from "../Inputs/NrfInput";
-import { SubmitNrfKeyButton } from "../SubmitButtons/SubmitNrf";
+import SubmitNrfKeyButton from "../SubmitButtons/SubmitNrf";
+import Typography from "../Typography";
 
 interface NrfModalProps {
   isOpen: boolean;
@@ -18,17 +19,15 @@ export const NrfModal: React.FC<NrfModalProps> = ({
 }) => {
   const [token, setToken] = useState<string>("");
   const [deviceIp, setDeviceIp] = useState<string>("");
-  const [message, updateMessage] = useState<IMessage>({
-    message: "",
-    color: "white",
-  })
+  const [message, updateMessage] = useState<string>("");
+
   const [disappear, setDisappear] = useState<boolean>(false);
 
   const handleCloseModal = () => {
     setOpen(false);
     setToken("");
     setDeviceIp("");
-    updateMessage({ message: "", color: "white" });
+    updateMessage("");
       
   };
 
@@ -48,9 +47,7 @@ export const NrfModal: React.FC<NrfModalProps> = ({
         </button>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-[25px] mb-4">
-          Please enter Nrf credentials below:
-        </h1>
+        <Typography className="mb-3" variant="title">Please enter Nrf credentials below:</Typography>
         <NrfInput
           token={token}
           setToken={setToken}
@@ -64,16 +61,15 @@ export const NrfModal: React.FC<NrfModalProps> = ({
           placeholder="Enter Device Id"
         />
         <SubmitNrfKeyButton
-          // valid={true}
           updateMessage={updateMessage}
           token={token}
           deviceId={deviceIp}
           disappearInput={setDisappear}
         />
 
-        <p className={`text-${message.color} text-center text-[17px] mt-10 font-bold`}>
-          {message.message}
-        </p>
+        <Typography variant="p" className={'text-white text-center mt-10 font-bold'}>
+          {message}
+        </Typography>
       </div>
     </Modal>
   );

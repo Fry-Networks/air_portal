@@ -1,18 +1,19 @@
 import { submitAwairKey } from "@/app/server/Awair";
 import { useWallet } from "@txnlab/use-wallet";
 import { useState } from "react";
-
-export function SubmitAwairKeyButton({
-  token,
-  deviceId,
-  updateMessage,
-  disappearInput,
-}: {
+import Button from "../Button";
+interface SubmitAwairKeyButtonProps {
   token: string;
   deviceId: string;
   updateMessage: (message: string) => void;
   disappearInput: (flag: boolean) => void;
-}) {
+}
+const SubmitAwairKeyButton: React.FC<SubmitAwairKeyButtonProps> = ({
+  token,
+  deviceId,
+  updateMessage,
+  disappearInput,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const { activeAddress } = useWallet();
 
@@ -26,12 +27,10 @@ export function SubmitAwairKeyButton({
     updateMessage("Submitting Key...");
 
     try {
-      const response = await submitAwairKey(token,deviceId,activeAddress! );
-
+      const response = await submitAwairKey(token, deviceId, activeAddress!);
       updateMessage(response.message);
     } catch (error) {
       console.error("Error submitting Awair key:", error);
-
       updateMessage("Error submitting Awair key.");
     } finally {
       setIsLoading(false);
@@ -40,14 +39,14 @@ export function SubmitAwairKeyButton({
   };
 
   return (
-    <button
-      onClick={handleAwairKeySubmit}
-      className={`py-4 px-6 text-base font-medium rounded-lg focus:outline-none ${
-        isValidKeys ? "bg-[#00FFFF] cursor-pointer" : "bg-gray-400 cursor-not-allowed"
-      }`}
-      disabled={!isValidKeys}
-    >
-      {isLoading ? "Submitting..." : "Submit Awair Key"}
-    </button>
+    <Button
+        onClick={handleAwairKeySubmit}
+        isValid={isValidKeys}
+        isLoading={isLoading}
+        text="Submit Awair Key"
+        loadingText="Submitting..."
+      />
   );
-}
+};
+
+export default SubmitAwairKeyButton;
