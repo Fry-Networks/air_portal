@@ -62,6 +62,7 @@ export async function EcowittLinkKey(
                 }
             })
             .catch((error) => {
+                console.log(error);
                 if (!error.response) {
                     returnData = {
                         verified: false,
