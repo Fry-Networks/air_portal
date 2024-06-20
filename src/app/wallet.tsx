@@ -160,8 +160,6 @@ export default function Wallet() {
                 logo="/iotex.svg"
                 size="150px"
               />
-
-
               
               <OpenButton
               showModal={showAirThingsModal}
@@ -172,7 +170,6 @@ export default function Wallet() {
               isOpen={isAirthingsModalOpen}
               setOpen={setisAirthingsModalOpen}
               />
-             
 
               <OpenButton
                 showModal={showPurpleAir}
@@ -204,7 +201,7 @@ export default function Wallet() {
               <OpenButton
                 showModal={showKaiterraModal}
                 text="Kaiterra"
-                logo="/Kaiterra.png"
+                logo="/kaiterra.png"
               />
               <KaiterraModal
                 isOpen={isKaiterraModalOpen}
@@ -213,7 +210,7 @@ export default function Wallet() {
               <OpenButton
                 showModal={showAtmotubeModal}
                 text="Atmotube"
-                logo="/Atmotube.png"
+                logo="/atmotube.png"
               />
               <AtmotubeModal
                 isOpen={isAtmotubeModalOpen}
