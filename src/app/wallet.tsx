@@ -119,13 +119,11 @@ export default function Wallet() {
   if (!activeAddress) {
     return (
       <div className="flex justify-center items-center text-center text-white w-[90vw] bg-[#201c1c] m-auto p-5">
-        <WagmiProvider config={wagmiConfig}>
           <WalletProvider value={walletProviders}>
             <div className="flex flex-col p-5 bg-[#84808a] rounded-[10px] w-[90vw] shadow-md">
               <Connect />
             </div>
           </WalletProvider>
-        </WagmiProvider>
       </div>
     );
   }
