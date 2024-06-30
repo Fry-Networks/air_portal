@@ -130,6 +130,7 @@ export default function Wallet() {
 
   return (
     <div className="flex justify-center items-center text-center text-white w-[90vw] bg-[#201c1c] m-auto p-5">
+      {/* @ts-ignore */}
       <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}> 
         <WalletProvider value={walletProviders}>
