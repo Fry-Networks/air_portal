@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { SubmitImeiButton } from "../SubmitButtons/SubmitPebble";
 import ImeiInput from "../Inputs/ImeiInput";
-
+import { Connector, useConnect } from 'wagmi'
 
 const logo =
   "/iotex.svg";
@@ -17,6 +17,7 @@ export function PebbleModal({
   const [valid, setValid] = useState(false);
   const [message, updateMessage] = useState({ message: "", color: "white" });
   const [disappear, setDisappear] = useState(false);
+  const { connectors, connect } = useConnect()
   return (
     <Modal
       isOpen={isOpen}
@@ -103,7 +104,13 @@ export function PebbleModal({
           setValid={setValid}
           disappear={disappear}
         />
-
+        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "10px" }}>
+        {connectors.map((connector) => (
+          <button key={connector.uid} onClick={() => connect({ connector })}>
+            {connector.name}
+          </button>
+        ))}
+        </div>
         <SubmitImeiButton
           valid={valid}
           imei={imei}
