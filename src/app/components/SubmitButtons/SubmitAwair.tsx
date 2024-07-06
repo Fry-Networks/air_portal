@@ -17,7 +17,7 @@ const SubmitAwairKeyButton: React.FC<SubmitAwairKeyButtonProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const { activeAddress } = useWallet();
 
-  const isValidToken = /[A-Za-z0-9.-_]{108}/i.test(token);
+  const isValidToken = /[A-Za-z0-9._-]{108}/i.test(token);
   const isValidDevice = /[0-9]{5}$/i.test(deviceId);
   const isValidKeys = isValidToken && isValidDevice;
 
