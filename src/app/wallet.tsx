@@ -193,7 +193,7 @@ export default function Wallet() {
                   logo="/Nrf.png"
                   size="48"
                 />
-
+                {/*
                 <OpenButton
                   showModal={showAwairModal}
                   text="Awair"
@@ -203,6 +203,8 @@ export default function Wallet() {
                   isOpen={isAwairModalOpen}
                   setOpen={setAwairModalIsOpen}
                 />
+                */
+}
                 <OpenButton
                   showModal={showKaiterraModal}
                   text="Kaiterra"
