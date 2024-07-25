@@ -28,6 +28,7 @@ import { PebbleModal } from "./components/KeyModals/PebbleModal";
 import { PurpleAirModal } from "./components/KeyModals/PurpleAirModal";
 import OpenButton from "./components/OpenButton";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { config } from './wagmi';
 
 const queryClient = new QueryClient()
 
@@ -80,9 +81,9 @@ export default function Wallet() {
     icons: ["https://avatars.githubusercontent.com/u/37784886"],
   };
 
-  const wagmiConfig = defaultWagmiConfig({ projectId, metadata, chains });
-
-  createWeb3Modal({ wagmiConfig, projectId });
+  //const wagmiConfig = defaultWagmiConfig({ projectId, metadata, chains });
+  console.log(config)
+  createWeb3Modal({ wagmiConfig: config, projectId });
 
   const showModal = () => {
     setModalIsOpen(true);
@@ -131,7 +132,7 @@ export default function Wallet() {
   return (
     <div className="flex justify-center items-center text-center text-white w-[90vw] bg-[#201c1c] m-auto p-5">
       {/* @ts-ignore */}
-      <WagmiProvider config={wagmiConfig}>
+      <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}> 
         <WalletProvider value={walletProviders}>
           <div className="flex flex-col p-5 bg-[#84808a] rounded-[10px] w-[100vw] shadow-md">

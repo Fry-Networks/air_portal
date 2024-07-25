@@ -105,11 +105,13 @@ export function PebbleModal({
           disappear={disappear}
         />
         <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "10px" }}>
-        {connectors.map((connector) => (
-          <button key={connector.uid} onClick={() => connect({ connector })}>
-            {connector.name}
-          </button>
-        ))}
+          {connectors.map((connector) => {
+            return (
+              <button key={connector.uid} onClick={() => connector.connect()}>
+                {connector.name}
+              </button>
+            )
+          })}
         </div>
         <SubmitImeiButton
           valid={valid}

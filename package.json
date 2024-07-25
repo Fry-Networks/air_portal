@@ -48,7 +48,7 @@
     "typescript": "5.1.6",
     "utf-8-validate": "^5.0.10",
     "viem": "^2.16.5",
-    "wagmi": "^2.10.8",
+    "wagmi": "^2.12.1",
     "walletconnect-monorepo": "^2.8.2"
   },
   "devDependencies": {
