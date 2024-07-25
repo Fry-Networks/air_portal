@@ -107,7 +107,7 @@ export function PebbleModal({
         <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "10px" }}>
           {connectors.map((connector) => {
             return (
-              <button key={connector.uid} onClick={() => connector.connect()}>
+              <button key={connector.uid} onClick={() => connect({connector})}>
                 {connector.name}
               </button>
             )

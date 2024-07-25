@@ -72,17 +72,7 @@ export default function Wallet() {
 
   const projectId = "74761852c2f607c540bb116a1bc9f011";
 
-  const chains: readonly [Chain, ...Chain[]] = [mainnet, iotex];
-
-  const metadata = {
-    name: "Next Starter Template",
-    description: "A Next.js starter template with Web3Modal v3 + Wagmi",
-    url: "https://web3modal.com",
-    icons: ["https://avatars.githubusercontent.com/u/37784886"],
-  };
-
   //const wagmiConfig = defaultWagmiConfig({ projectId, metadata, chains });
-  console.log(config)
   createWeb3Modal({ wagmiConfig: config, projectId });
 
   const showModal = () => {
