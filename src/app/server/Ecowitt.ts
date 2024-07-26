@@ -4,7 +4,7 @@ import "dotenv/config";
 import { StatusColors } from "./consts";
 const ecourl = `http://${process.env.API_HOST}:${process.env.API_PORT}/api/submitEcokey`;
 export async function EcowittLinkKey(
-    key: string,
+    apiKey: string,
     appKey: string,
     address: string
 ): Promise<{
@@ -30,7 +30,7 @@ export async function EcowittLinkKey(
     };
     try {
         await axios
-            .post(ecourl, { key, app_key: appKey, address })
+            .post(ecourl, { apiKey, app_key: appKey, address })
             .then((response) => {
                 const data: {
                     message: string;

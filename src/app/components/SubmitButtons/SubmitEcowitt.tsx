@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useWallet } from "@txnlab/use-wallet";
 import { EcowittLinkKey } from "@/app/server/Ecowitt";
+import { useWallet } from "@txnlab/use-wallet";
 
 export function SubmitKeyButton({
     valid,
@@ -61,7 +60,7 @@ export function SubmitKeyButton({
     disappearInput: Function,
     activeAddress: string
   ) => {
-    disappearInput(true);
+    // disappearInput(true);
     updateMessage({ message: "Submitting Key...", color: "white" });
     const response: {
       verified: boolean;

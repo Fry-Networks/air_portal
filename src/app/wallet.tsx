@@ -22,6 +22,7 @@ import { AmbientModal } from "./components/KeyModals/AmbientModal";
 import { AtmotubeModal } from "./components/KeyModals/AtmotubeModal";
 import { AwairModal } from "./components/KeyModals/AwairModal";
 import { EcowittModal } from "./components/KeyModals/EcowittModal";
+import { GoveeModal } from "./components/KeyModals/GoveeModal";
 import { KaiterraModal } from "./components/KeyModals/KaiterraModal";
 import { NrfModal } from "./components/KeyModals/NrfModal";
 import { PebbleModal } from "./components/KeyModals/PebbleModal";
@@ -59,6 +60,7 @@ export default function Wallet() {
   const [isAtmotubeModalOpen, setAtmotubeModalIsOpen] = useState(false);
   const [isAwairModalOpen, setAwairModalIsOpen] = useState(false);
   const [isKaiterraModalOpen, setKaiterraModalIsOpen] = useState(false);
+  const [isGoveeModalIsOpen,setGoveeModalIsOpen] = useState(false);
   const [ready, setReady] = useState(false);
   useEffect(() => {
     setReady(true);
@@ -106,6 +108,9 @@ export default function Wallet() {
   };
   const showAtmotubeModal = () => {
     setAtmotubeModalIsOpen(true);
+  };
+  const showGoveeModal = () => {
+    setGoveeModalIsOpen(true);
   };
   useEffect(() => {
     if (walletProviders !== null) {
@@ -215,6 +220,15 @@ export default function Wallet() {
               <AtmotubeModal
                 isOpen={isAtmotubeModalOpen}
                 setOpen={setAtmotubeModalIsOpen}
+              />
+              <OpenButton
+                showModal={showGoveeModal}
+                text="Govee"
+                logo="/govee.png"
+              />
+              <GoveeModal
+                isOpen={isGoveeModalIsOpen}
+                setOpen={setGoveeModalIsOpen}
               />
             </div>
           </div>
