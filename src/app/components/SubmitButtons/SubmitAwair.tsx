@@ -17,9 +17,10 @@ const SubmitAwairKeyButton: React.FC<SubmitAwairKeyButtonProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const { activeAddress } = useWallet();
 
-  const isValidToken = /[A-Za-z0-9._]{108}$/i.test(token);
+  const isValidToken = /[A-Za-z0-9._-]{108}/i.test(token);
   const isValidDevice = /[0-9]{5}$/i.test(deviceId);
   const isValidKeys = isValidToken && isValidDevice;
+  
 
   const handleAwairKeySubmit = async () => {
     setIsLoading(true);
@@ -27,7 +28,12 @@ const SubmitAwairKeyButton: React.FC<SubmitAwairKeyButtonProps> = ({
     updateMessage("Submitting Key...");
 
     try {
-      const response = await submitAwairKey(token, deviceId, activeAddress!);
+      const matchId = deviceId.match(/([0-9]{5})/g);
+      if (!matchId) {
+        throw new Error("Invalid device ID");
+      }
+
+      const response = await submitAwairKey(token, matchId[0], activeAddress!);
       updateMessage(response.message);
     } catch (error) {
       console.error("Error submitting Awair key:", error);
