@@ -14,7 +14,7 @@ import { WalletConnectModalSign } from "@walletconnect/modal-sign-html";
 import { useEffect, useState } from "react";
 import Connect from "./components/Connect";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createWeb3Modal } from "@web3modal/wagmi";
 import { WagmiProvider } from "wagmi";
 import { AirThingsModal } from "./components/KeyModals/AirthingsModal";
@@ -28,10 +28,9 @@ import { NrfModal } from "./components/KeyModals/NrfModal";
 import { PebbleModal } from "./components/KeyModals/PebbleModal";
 import { PurpleAirModal } from "./components/KeyModals/PurpleAirModal";
 import OpenButton from "./components/OpenButton";
-import { config } from './wagmi';
+import { config } from "./wagmi";
 
-const queryClient = new QueryClient()
-
+const queryClient = new QueryClient();
 
 export default function Wallet() {
   const walletProviders = useInitializeProviders({
@@ -64,7 +63,7 @@ export default function Wallet() {
   const [isAtmotubeModalOpen, setAtmotubeModalIsOpen] = useState(false);
   const [isAwairModalOpen, setAwairModalIsOpen] = useState(false);
   const [isKaiterraModalOpen, setKaiterraModalIsOpen] = useState(false);
-  const [isGoveeModalIsOpen,setGoveeModalIsOpen] = useState(false);
+  const [isGoveeModalIsOpen, setGoveeModalIsOpen] = useState(false);
   const [ready, setReady] = useState(false);
   useEffect(() => {
     setReady(true);
@@ -114,11 +113,11 @@ export default function Wallet() {
   if (!activeAddress) {
     return (
       <div className="flex justify-center items-center text-center text-white w-[90vw] bg-[#201c1c] m-auto p-5">
-          <WalletProvider value={walletProviders}>
-            <div className="flex flex-col p-5 bg-[#84808a] rounded-[10px] w-[90vw] shadow-md">
-              <Connect />
-            </div>
-          </WalletProvider>
+        <WalletProvider value={walletProviders}>
+          <div className="flex flex-col p-5 bg-[#84808a] rounded-[10px] w-[90vw] shadow-md">
+            <Connect />
+          </div>
+        </WalletProvider>
       </div>
     );
   }
@@ -127,137 +126,110 @@ export default function Wallet() {
     <div className="flex justify-center items-center text-center text-white w-[90vw] bg-[#201c1c] m-auto p-5">
       {/* @ts-ignore */}
       <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <WalletProvider value={walletProviders}>
-          <div className="flex flex-col p-5 bg-[#84808a] rounded-[10px] w-[100vw] shadow-md">
-            <Connect />
-            <div className="flex justify-center items-center">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <OpenButton
-                  showModal={showModal}
-                  text="Ambient"
-                  logo="/ambient.png"
-                />
-                <AmbientModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
+        <QueryClientProvider client={queryClient}>
+          <WalletProvider value={walletProviders}>
+            <div className="flex flex-col p-5 bg-[#84808a] rounded-[10px] w-[100vw] shadow-md">
+              <Connect />
+              <div className="flex justify-center items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                  <OpenButton
+                    showModal={showModal}
+                    text="Ambient"
+                    logo="/ambient.png"
+                  />
+                  <AmbientModal isOpen={isModalOpen} setOpen={setModalIsOpen} />
 
-                <OpenButton
-                  showModal={showEcowittModal}
-                  text="Ecowitt / Froggit / MISOL"
-                  logo="/ecowitt.png"
-                />
-                <EcowittModal
-                  isOpen={isEcowittModalOpen}
-                  setOpen={setIsEcowittModalOpen}
-                />
+                  <OpenButton
+                    showModal={showEcowittModal}
+                    text="Ecowitt / Froggit / MISOL"
+                    logo="/ecowitt.png"
+                  />
+                  <EcowittModal
+                    isOpen={isEcowittModalOpen}
+                    setOpen={setIsEcowittModalOpen}
+                  />
 
-                <PebbleModal
-                  isOpen={isPebbleModalOpen}
-                  setOpen={setPebbleModalIsOpen}
-                />
-                <OpenButton
-                  showModal={showPebbleModal}
-                  text="Pebble (IOTEX)"
-                  logo="/iotex.svg"
-                  size="150px"
-                />
+                  <PebbleModal
+                    isOpen={isPebbleModalOpen}
+                    setOpen={setPebbleModalIsOpen}
+                  />
+                  <OpenButton
+                    showModal={showPebbleModal}
+                    text="Pebble (IOTEX)"
+                    logo="/iotex.svg"
+                    size="150px"
+                  />
 
-                <OpenButton
-                  showModal={showAirThingsModal}
-                  text="Airthings"
-                  logo="/air-things.png"
-                />
-                <AirThingsModal
-                  isOpen={isAirthingsModalOpen}
-                  setOpen={setisAirthingsModalOpen}
-                />
+                  <OpenButton
+                    showModal={showAirThingsModal}
+                    text="Airthings"
+                    logo="/air-things.png"
+                  />
+                  <AirThingsModal
+                    isOpen={isAirthingsModalOpen}
+                    setOpen={setisAirthingsModalOpen}
+                  />
 
-                <OpenButton
-                  showModal={showPurpleAir}
-                  text="Purple Air"
-                  logo="/purple-air.png"
-                />
-                <PurpleAirModal
-                  isOpen={isPurpleAirOpen}
-                  setOpen={setIsPurpleAirOpen}
-                />
+                  <OpenButton
+                    showModal={showPurpleAir}
+                    text="Purple Air"
+                    logo="/purple-air.png"
+                  />
+                  <PurpleAirModal
+                    isOpen={isPurpleAirOpen}
+                    setOpen={setIsPurpleAirOpen}
+                  />
 
-              <OpenButton
-                showModal={showAwairModal}
-                text="Awair"
-                logo="/awair.png"
-              />
-              <AwairModal
-                isOpen={isAwairModalOpen}
-                setOpen={setAwairModalIsOpen}
-              />
-              <OpenButton
-                showModal={showKaiterraModal}
-                text="Kaiterra"
-                logo="/kaiterra.png"
-              />
-              <KaiterraModal
-                isOpen={isKaiterraModalOpen}
-                setOpen={setKaiterraModalIsOpen}
-              />
-              <OpenButton
-                showModal={showAtmotubeModal}
-                text="Atmotube"
-                logo="/atmotube.png"
-              />
-              <AtmotubeModal
-                isOpen={isAtmotubeModalOpen}
-                setOpen={setAtmotubeModalIsOpen}
-              />
-              <OpenButton
-                showModal={showGoveeModal}
-                text="Govee"
-                logo="/govee.png"
-              />
-              <GoveeModal
-                isOpen={isGoveeModalIsOpen}
-                setOpen={setGoveeModalIsOpen}
-              />
-                <NrfModal isOpen={isNrfModalOpen} setOpen={setNrfModalIsOpen} />
-                <OpenButton
-                  showModal={showNrfModal}
-                  text="Nrf"
-                  logo="/Nrf.png"
-                  size="48"
-                />
-                {/*
-                <OpenButton
-                  showModal={showAwairModal}
-                  text="Awair"
-                  logo="/awair.png"
-                />
-                <AwairModal
-                  isOpen={isAwairModalOpen}
-                  setOpen={setAwairModalIsOpen}
-                />
-                */
-}
-                {/* <OpenButton
-                  showModal={showKaiterraModal}
-                  text="Kaiterra"
-                  logo="/kaiterra.png"
-                />
-                <KaiterraModal
-                  isOpen={isKaiterraModalOpen}
-                  setOpen={setKaiterraModalIsOpen}
-                />
-                <OpenButton
-                  showModal={showAtmotubeModal}
-                  text="Atmotube"
-                  logo="/atmotube.png"
-                />
-                <AtmotubeModal
-                  isOpen={isAtmotubeModalOpen}
-                  setOpen={setAtmotubeModalIsOpen}
-                /> */}
+                  <OpenButton
+                    showModal={showAwairModal}
+                    text="Awair"
+                    logo="/awair.png"
+                  />
+                  <AwairModal
+                    isOpen={isAwairModalOpen}
+                    setOpen={setAwairModalIsOpen}
+                  />
+                  <OpenButton
+                    showModal={showKaiterraModal}
+                    text="Kaiterra"
+                    logo="/kaiterra.png"
+                  />
+                  <KaiterraModal
+                    isOpen={isKaiterraModalOpen}
+                    setOpen={setKaiterraModalIsOpen}
+                  />
+                  <OpenButton
+                    showModal={showAtmotubeModal}
+                    text="Atmotube"
+                    logo="/atmotube.png"
+                  />
+                  <AtmotubeModal
+                    isOpen={isAtmotubeModalOpen}
+                    setOpen={setAtmotubeModalIsOpen}
+                  />
+                  <OpenButton
+                    showModal={showGoveeModal}
+                    text="Govee"
+                    logo="/govee.png"
+                  />
+                  <GoveeModal
+                    isOpen={isGoveeModalIsOpen}
+                    setOpen={setGoveeModalIsOpen}
+                  />
+                  <NrfModal
+                    isOpen={isNrfModalOpen}
+                    setOpen={setNrfModalIsOpen}
+                  />
+                  <OpenButton
+                    showModal={showNrfModal}
+                    text="Nrf"
+                    logo="/Nrf.png"
+                    size="48"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </WalletProvider>
+          </WalletProvider>
         </QueryClientProvider>
       </WagmiProvider>
     </div>
