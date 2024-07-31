@@ -5,13 +5,21 @@ import Button from "../Button";
 interface SubmitAtmotubeKeyButtonProps {
   token: string;
   deviceId: string;
-  updateMessage: (message: string) => void;
+  minerKey: string;
+  updateMessage: ({
+    message,
+    color,
+  }: {
+    message: string;
+    color: string;
+  }) => void;
   disappearInput: (flag: boolean) => void;
 }
 
 const SubmitAtmotubeKeyButton: React.FC<SubmitAtmotubeKeyButtonProps> = ({
   token,
   deviceId,
+  minerKey,
   updateMessage,
   disappearInput,
 }) => {
@@ -20,19 +28,20 @@ const SubmitAtmotubeKeyButton: React.FC<SubmitAtmotubeKeyButtonProps> = ({
 
   const isValidToken = /^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$/i.test(token);
   const isValidDevice = /^([0-9A-Za-z]{2}:){5}[0-9A-Za-z]{2}$/i.test(deviceId);
-  const isValidKeys = isValidToken && isValidDevice;
+  const isValidMiner = /^([A-Z]{2,6})-[A-Z0-9]{32}$/i.test(minerKey);
+  const isValidKeys = isValidToken && isValidDevice && isValidMiner;
 
   const handleAtmotubeKeySubmit = async () => {
     setIsLoading(true);
     disappearInput(true);
-    updateMessage("Submitting Key...");
+    updateMessage({ message: "Submitting Key...", color: "white" });
 
     try {
-      const response = await submitAtmotubeKey(token, deviceId, activeAddress!);
-      updateMessage(response.message);
+      const response = await submitAtmotubeKey(token, deviceId, minerKey, activeAddress!);
+      updateMessage(response.data);
     } catch (error) {
       console.error("Error submitting Atmotube key:", error);
-      updateMessage("Error submitting Atmotube key.");
+      updateMessage({message:"Error submitting Atmotube key",color:""});
     } finally {
       setIsLoading(false);
       disappearInput(false);

@@ -6,6 +6,7 @@ import Button from "../Button";
 interface SubmitGoveeKeyButtonProps {
   token: string;
   deviceId: string;
+  minerKey: string;
   updateMessage: ({
     message,
     color,
@@ -18,6 +19,7 @@ interface SubmitGoveeKeyButtonProps {
 const SubmitGoveeKeyButton: React.FC<SubmitGoveeKeyButtonProps> = ({
   token,
   deviceId,
+  minerKey,
   updateMessage,
   disappearInput,
 }) => {
@@ -26,16 +28,16 @@ const SubmitGoveeKeyButton: React.FC<SubmitGoveeKeyButtonProps> = ({
 
   const isValidToken = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/i.test(token);
   const isValidDevice = /^[A-F0-9]{2}(:[A-F0-9]{2}){7}$/i.test(deviceId);
-  const isValidKeys = isValidToken && isValidDevice;
+  const isValidMiner = /^([A-Z]{2,6})-[A-Z0-9]{32}$/i.test(minerKey);
+  const isValidKeys = isValidToken && isValidDevice && isValidMiner;
 
   const handleGoveeKeySubmit = async () => {
-    console.log(token,'apikey')
     setIsLoading(true);
     disappearInput(true);
     updateMessage({ message: "Submitting Key...", color: "white" });
 
     try {
-      const response = await GoveeKey(token, deviceId, activeAddress!);
+      const response = await GoveeKey(token, deviceId,minerKey,activeAddress!);
       updateMessage(response.data);
     } catch (error) {
       console.error("Error submitting Govee key:", error);

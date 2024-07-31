@@ -20,13 +20,14 @@ export const NrfModal: React.FC<NrfModalProps> = ({
   const [token, setToken] = useState<string>("");
   const [deviceIp, setDeviceIp] = useState<string>("");
   const [message, updateMessage] = useState<string>("");
-
+  const [minerKey, setMinerKey] = useState<string>("");
   const [disappear, setDisappear] = useState<boolean>(false);
 
   const handleCloseModal = () => {
     setOpen(false);
     setToken("");
     setDeviceIp("");
+    setMinerKey("");
     updateMessage("");
       
   };
@@ -60,10 +61,17 @@ export const NrfModal: React.FC<NrfModalProps> = ({
           inputType="id"
           placeholder="Enter Device Id"
         />
+        <NrfInput
+          token={minerKey}
+          setToken={setMinerKey}
+          inputType="id"
+          placeholder="Enter Miner Key"
+        />
         <SubmitNrfKeyButton
           updateMessage={updateMessage}
           token={token}
           deviceId={deviceIp}
+          minerKey={minerKey}
           disappearInput={setDisappear}
         />
 

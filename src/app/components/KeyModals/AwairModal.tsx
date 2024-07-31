@@ -15,6 +15,7 @@ export const AwairModal: React.FC<AwairModalProps> = ({
 }) => {
   const [token, setToken] = useState<string>("");
   const [deviceId, setDeviceId] = useState<string>("");
+  const [minerKey, setMinerKey] = useState<string>("");
   const [message, updateMessage] = useState<string>("");
   const [disappear, setDisappear] = useState<boolean>(false);
 
@@ -22,6 +23,7 @@ export const AwairModal: React.FC<AwairModalProps> = ({
     setOpen(false);
     setToken("");
     setDeviceId("");
+    setMinerKey("");
     updateMessage("");
   };
 
@@ -54,11 +56,18 @@ export const AwairModal: React.FC<AwairModalProps> = ({
           inputType="server"
           placeholder="Enter Token"
         />
+        <AwairInput
+          token={minerKey}
+          setToken={setMinerKey}
+          inputType="server"
+          placeholder="Enter Miner Key"
+        />
 
         <SubmitAwairKeyButton
           updateMessage={updateMessage}
           token={token}
           deviceId={deviceId}
+          minerKey={minerKey}
           disappearInput={setDisappear}
         />
 

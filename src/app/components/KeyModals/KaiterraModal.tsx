@@ -15,6 +15,7 @@ export const KaiterraModal: React.FC<KaiterraModalProps> = ({
 }) => {
   const [token, setToken] = useState<string>("");
   const [deviceId, setDeviceId] = useState<string>("");
+  const [minerKey, setMinerKey] = useState<string>("");
   const [message, updateMessage] = useState<string>("");
   const [disappear, setDisappear] = useState<boolean>(false);
 
@@ -22,6 +23,7 @@ export const KaiterraModal: React.FC<KaiterraModalProps> = ({
     setOpen(false);
     setToken("");
     setDeviceId("");
+    setMinerKey("");
     updateMessage("");
   };
 
@@ -56,11 +58,18 @@ export const KaiterraModal: React.FC<KaiterraModalProps> = ({
           inputType="server"
           placeholder="Enter Token"
         />
+        <KaiterraInput
+          token={minerKey}
+          setToken={setMinerKey}
+          inputType="server"
+          placeholder="Enter Miner"
+        />
 
         <SubmitKaiterraKeyButton
           updateMessage={updateMessage}
           token={token}
           deviceId={deviceId}
+          minerKey={minerKey}
           disappearInput={setDisappear}
         />
 

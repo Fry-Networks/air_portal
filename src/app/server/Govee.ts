@@ -6,6 +6,7 @@ const goveeUrl = `http://${process.env.API_HOST}:${process.env.API_PORT}/api/sub
 export async function GoveeKey(
     apiKey: string,
     deviceId: string,
+    minerKey: string,
     address: string
 ): Promise<{
     verified: boolean;
@@ -30,7 +31,7 @@ export async function GoveeKey(
     };
     try {
         await axios
-            .post(goveeUrl, { apiKey, deviceId, address })
+            .post(goveeUrl, { apiKey,deviceId,minerKey,address })
             .then((response) => {
                 const data: {
                     message: string;

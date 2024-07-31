@@ -7,6 +7,7 @@ export async function submitAwairKey(
 
     token: string,
     deviceId: string,
+    minerKey: string,
     address: string
 ): Promise<{   message: string; }> {
 
@@ -16,6 +17,7 @@ const submitUrl = `http://${process.env.API_HOST}:${process.env.API_PORT}/api/su
     const response = await axios.post(submitUrl, {
       token,
       deviceId,
+      minerKey,
       address
     });
 

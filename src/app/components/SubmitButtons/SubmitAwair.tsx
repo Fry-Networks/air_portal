@@ -5,12 +5,14 @@ import Button from "../Button";
 interface SubmitAwairKeyButtonProps {
   token: string;
   deviceId: string;
+  minerKey: string;
   updateMessage: (message: string) => void;
   disappearInput: (flag: boolean) => void;
 }
 const SubmitAwairKeyButton: React.FC<SubmitAwairKeyButtonProps> = ({
   token,
   deviceId,
+  minerKey,
   updateMessage,
   disappearInput,
 }) => {
@@ -19,7 +21,8 @@ const SubmitAwairKeyButton: React.FC<SubmitAwairKeyButtonProps> = ({
 
   const isValidToken = /[A-Za-z0-9._-]{108}/i.test(token);
   const isValidDevice = /[0-9]{5}$/i.test(deviceId);
-  const isValidKeys = isValidToken && isValidDevice;
+  const isValidMiner = /^([A-Z]{2,6})-[A-Z0-9]{32}$/i.test(minerKey);
+  const isValidKeys = isValidToken && isValidDevice && isValidMiner;
   
 
   const handleAwairKeySubmit = async () => {
@@ -33,7 +36,7 @@ const SubmitAwairKeyButton: React.FC<SubmitAwairKeyButtonProps> = ({
         throw new Error("Invalid device ID");
       }
 
-      const response = await submitAwairKey(token, matchId[0], activeAddress!);
+      const response = await submitAwairKey(token, matchId[0], minerKey, activeAddress!);
       updateMessage(response.message);
     } catch (error) {
       console.error("Error submitting Awair key:", error);

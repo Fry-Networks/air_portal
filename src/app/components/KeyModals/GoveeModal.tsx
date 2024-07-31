@@ -15,6 +15,7 @@ export const GoveeModal: React.FC<GoveeModalProps> = ({
 }) => {
   const [token, setToken] = useState<string>("");
   const [deviceId, setDeviceId] = useState<string>("");
+  const [minerKey, setMinerKey] = useState<string>("");
   const [message, updateMessage] = useState({ message: "", color: "white" });
   const [disappear, setDisappear] = useState<boolean>(false);
 
@@ -22,6 +23,7 @@ export const GoveeModal: React.FC<GoveeModalProps> = ({
     setOpen(false);
     setToken("");
     setDeviceId("");
+    setMinerKey("");
     updateMessage({ message: "", color: "white" });
   };
 
@@ -54,10 +56,17 @@ export const GoveeModal: React.FC<GoveeModalProps> = ({
           inputType="id"
           placeholder="Enter Device Id"
         />
+        <GoveeInput
+          token={minerKey}
+          setToken={setMinerKey}
+          inputType="id"
+          placeholder="Enter Miner Key"
+        />
         <SubmitGoveeKeyButton
           updateMessage={updateMessage}
           token={token}
           deviceId={deviceId}
+          minerKey={minerKey}
           disappearInput={setDisappear}
         />
 
