@@ -20,7 +20,7 @@ const SubmitNrfKeyButton: React.FC<SubmitNrfKeyButtonProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const { activeAddress } = useWallet();
 
-  const isValidToken = /[A-Za-z0-9]{40}$/i.test(token);
+  const isValidToken = /^[A-Za-z0-9]{40}$/i.test(token);
   const isValidDevice = /nrf-\d{15}$/i.test(deviceId);
   const isValidMiner = /^([A-Z]{2,6})-[A-Z0-9]{32}$/i.test(minerKey);
   const isValidKeys = isValidToken && isValidDevice && isValidMiner;
