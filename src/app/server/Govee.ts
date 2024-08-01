@@ -31,7 +31,7 @@ export async function GoveeKey(
     };
     try {
         await axios
-            .post(goveeUrl, { apiKey,deviceId,minerKey,address })
+        .post(goveeUrl, { apiKey,deviceId,minerKey,address })
             .then((response) => {
                 const data: {
                     message: string;

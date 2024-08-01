@@ -6,7 +6,13 @@ interface SubmitNrfKeyButtonProps {
   token: string;
   deviceId: string;
   minerKey: string;
-  updateMessage: (message: string) => void;
+  updateMessage: ({
+    message,
+    color,
+  }: {
+    message: string;
+    color: string;
+  }) => void;
   disappearInput: (flag: boolean) => void;
 }
 
@@ -28,14 +34,13 @@ const SubmitNrfKeyButton: React.FC<SubmitNrfKeyButtonProps> = ({
   const handleNrfKeySubmit = async () => {
     setIsLoading(true);
     disappearInput(true);
-    updateMessage("Submitting Key...");
+    updateMessage({ message: "Submitting Key...", color: "white" });
 
     try {
       const response = await submitNrfKey(token, deviceId, minerKey , activeAddress!);
-      updateMessage(response?.message);
+      updateMessage(response?.data);
     } catch (error) {
       console.error("Error submitting Nrf key:", error);
-      updateMessage("Error submitting Atmotube key.");
     } finally {
       setIsLoading(false);
       disappearInput(false);

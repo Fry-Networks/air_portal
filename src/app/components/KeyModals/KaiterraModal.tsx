@@ -16,7 +16,7 @@ export const KaiterraModal: React.FC<KaiterraModalProps> = ({
   const [token, setToken] = useState<string>("");
   const [deviceId, setDeviceId] = useState<string>("");
   const [minerKey, setMinerKey] = useState<string>("");
-  const [message, updateMessage] = useState<string>("");
+  const [message, updateMessage] = useState({ message: "", color: "white" });
   const [disappear, setDisappear] = useState<boolean>(false);
 
   const handleCloseModal = () => {
@@ -24,7 +24,7 @@ export const KaiterraModal: React.FC<KaiterraModalProps> = ({
     setToken("");
     setDeviceId("");
     setMinerKey("");
-    updateMessage("");
+    updateMessage({ message: "", color: "white" });
   };
 
   return (
@@ -74,7 +74,7 @@ export const KaiterraModal: React.FC<KaiterraModalProps> = ({
         />
 
         <Typography variant="p" className={'text-white text-center mt-10 font-bold'}>
-          {message}
+          {message.message}
         </Typography>
       </div>
     </Modal>

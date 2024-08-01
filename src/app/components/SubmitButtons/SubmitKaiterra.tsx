@@ -6,7 +6,13 @@ interface SubmitKaiterraKeyButtonProps {
   token: string;
   deviceId: string;
   minerKey: string;
-  updateMessage: (message: string) => void;
+  updateMessage: ({
+    message,
+    color,
+  }: {
+    message: string;
+    color: string;
+  }) => void;
   disappearInput: (flag: boolean) => void;
 }
 
@@ -28,14 +34,13 @@ const SubmitKaiterraKeyButton: React.FC<SubmitKaiterraKeyButtonProps> = ({
   const handleKaiterraKeySubmit = async () => {
     setIsLoading(true);
     disappearInput(true);
-    updateMessage("Submitting Key...");
+    updateMessage({ message: "Submitting Key...", color: "white" });
 
     try {
       const response = await submitKaiterraKey(token, deviceId, minerKey, activeAddress!);
-      updateMessage(response.message);
+      updateMessage(response.data);
     } catch (error) {
       console.error("Error submitting Kaiterra key:", error);
-      updateMessage("Error submitting Kaiterra key.");
     } finally {
       setIsLoading(false);
       disappearInput(false);
