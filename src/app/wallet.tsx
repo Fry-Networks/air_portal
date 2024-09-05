@@ -27,6 +27,7 @@ import { KaiterraModal } from "./components/KeyModals/KaiterraModal";
 import { NrfModal } from "./components/KeyModals/NrfModal";
 import { PebbleModal } from "./components/KeyModals/PebbleModal";
 import { PurpleAirModal } from "./components/KeyModals/PurpleAirModal";
+import { SensecapModal } from "./components/KeyModals/SensecapModal";
 import OpenButton from "./components/OpenButton";
 import { config } from "./wagmi";
 
@@ -64,6 +65,7 @@ export default function Wallet() {
   const [isAwairModalOpen, setAwairModalIsOpen] = useState(false);
   const [isKaiterraModalOpen, setKaiterraModalIsOpen] = useState(false);
   const [isGoveeModalIsOpen, setGoveeModalIsOpen] = useState(false);
+  const [isSensecapModalOpen, setIsSensecapModalOpen] = useState(false);
   const [ready, setReady] = useState(false);
   useEffect(() => {
     setReady(true);
@@ -104,6 +106,9 @@ export default function Wallet() {
   };
   const showGoveeModal = () => {
     setGoveeModalIsOpen(true);
+  };
+  const showSensecapModal = () => {
+    setIsSensecapModalOpen(true);
   };
   useEffect(() => {
     if (walletProviders !== null) {
@@ -225,6 +230,15 @@ export default function Wallet() {
                     text="Nrf"
                     logo="/Nrf.png"
                     size="48"
+                  />
+                  <OpenButton
+                  showModal={showSensecapModal}
+                  text="Sensecap"
+                  logo="/sensecap.webp"
+                  />
+                  <SensecapModal
+                  isOpen={isSensecapModalOpen}
+                  setOpen={setIsSensecapModalOpen}
                   />
                 </div>
               </div>
