@@ -5,8 +5,14 @@ import Button from "../Button";
 interface SubmitKaiterraKeyButtonProps {
   token: string;
   deviceId: string;
-  updateMessage: (message: string) => void;
   disappearInput: (flag: boolean) => void;
+  updateMessage: ({
+    message,
+    color,
+  }: {
+    message: string;
+    color: string;
+  }) => void;
 }
 
 const SubmitKaiterraKeyButton: React.FC<SubmitKaiterraKeyButtonProps> = ({
@@ -25,14 +31,14 @@ const SubmitKaiterraKeyButton: React.FC<SubmitKaiterraKeyButtonProps> = ({
   const handleKaiterraKeySubmit = async () => {
     setIsLoading(true);
     disappearInput(true);
-    updateMessage("Submitting Key...");
+    updateMessage({ message: "Submitting Key...", color: "white" });
 
     try {
       const response = await submitKaiterraKey(token, deviceId, activeAddress!);
-      updateMessage(response.message);
+      updateMessage(response.data);
     } catch (error) {
       console.error("Error submitting Kaiterra key:", error);
-      updateMessage("Error submitting Kaiterra key.");
+      updateMessage({ message: "Error submitting Kaiterra key.", color: "white" });
     } finally {
       setIsLoading(false);
       disappearInput(false);
