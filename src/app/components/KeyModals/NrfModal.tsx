@@ -19,7 +19,7 @@ export const NrfModal: React.FC<NrfModalProps> = ({
 }) => {
   const [token, setToken] = useState<string>("");
   const [deviceIp, setDeviceIp] = useState<string>("");
-  const [message, updateMessage] = useState<string>("");
+  const [message, updateMessage] = useState({ message: "", color: "white" });
 
   const [disappear, setDisappear] = useState<boolean>(false);
 
@@ -27,7 +27,7 @@ export const NrfModal: React.FC<NrfModalProps> = ({
     setOpen(false);
     setToken("");
     setDeviceIp("");
-    updateMessage("");
+    updateMessage({ message: "", color: "white" });
       
   };
 
@@ -52,7 +52,7 @@ export const NrfModal: React.FC<NrfModalProps> = ({
           token={token}
           setToken={setToken}
           inputType="server"
-          placeholder="Enter Token"
+          placeholder="Enter API Key"
         />
         <NrfInput
           token={deviceIp}
@@ -68,7 +68,7 @@ export const NrfModal: React.FC<NrfModalProps> = ({
         />
 
         <Typography variant="p" className={'text-white text-center mt-10 font-bold'}>
-          {message}
+          {message.message}
         </Typography>
       </div>
     </Modal>
