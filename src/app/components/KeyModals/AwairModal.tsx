@@ -15,14 +15,14 @@ export const AwairModal: React.FC<AwairModalProps> = ({
 }) => {
   const [token, setToken] = useState<string>("");
   const [deviceId, setDeviceId] = useState<string>("");
-  const [message, updateMessage] = useState<string>("");
+  const [message, updateMessage] = useState({ message: "", color: "white" });
   const [disappear, setDisappear] = useState<boolean>(false);
 
   const handleCloseModal = () => {
     setOpen(false);
     setToken("");
     setDeviceId("");
-    updateMessage("");
+    updateMessage({ message: "", color: "white" });
   };
 
   return (
@@ -63,7 +63,7 @@ export const AwairModal: React.FC<AwairModalProps> = ({
         />
 
         <Typography variant="p" className={'text-white text-center mt-10 font-bold'}>
-          {message}
+        {message.message}
         </Typography>
       </div>
     </Modal>

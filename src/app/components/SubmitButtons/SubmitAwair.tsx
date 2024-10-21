@@ -5,7 +5,13 @@ import Button from "../Button";
 interface SubmitAwairKeyButtonProps {
   token: string;
   deviceId: string;
-  updateMessage: (message: string) => void;
+  updateMessage: ({
+    message,
+    color,
+  }: {
+    message: string;
+    color: string;
+  }) => void;
   disappearInput: (flag: boolean) => void;
 }
 const SubmitAwairKeyButton: React.FC<SubmitAwairKeyButtonProps> = ({
@@ -25,7 +31,7 @@ const SubmitAwairKeyButton: React.FC<SubmitAwairKeyButtonProps> = ({
   const handleAwairKeySubmit = async () => {
     setIsLoading(true);
     disappearInput(true);
-    updateMessage("Submitting Key...");
+    updateMessage({ message: "Submitting Key...", color: "white" });
 
     try {
       const matchId = deviceId.match(/([0-9]{5})/g);
@@ -34,10 +40,10 @@ const SubmitAwairKeyButton: React.FC<SubmitAwairKeyButtonProps> = ({
       }
 
       const response = await submitAwairKey(token, matchId[0], activeAddress!);
-      updateMessage(response.message);
+      updateMessage(response.data);
     } catch (error) {
       console.error("Error submitting Awair key:", error);
-      updateMessage("Error submitting Awair key.");
+      updateMessage({ message: "Error submitting Awair key.", color: "white" });
     } finally {
       setIsLoading(false);
       disappearInput(false);
