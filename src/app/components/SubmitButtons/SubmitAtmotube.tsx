@@ -5,7 +5,13 @@ import Button from "../Button";
 interface SubmitAtmotubeKeyButtonProps {
   token: string;
   deviceId: string;
-  updateMessage: (message: string) => void;
+  updateMessage: ({
+    message,
+    color,
+  }: {
+    message: string;
+    color: string;
+  }) => void;
   disappearInput: (flag: boolean) => void;
 }
 
@@ -25,14 +31,14 @@ const SubmitAtmotubeKeyButton: React.FC<SubmitAtmotubeKeyButtonProps> = ({
   const handleAtmotubeKeySubmit = async () => {
     setIsLoading(true);
     disappearInput(true);
-    updateMessage("Submitting Key...");
+    updateMessage({ message: "Submitting Key...", color: "white" });
 
     try {
       const response = await submitAtmotubeKey(token, deviceId, activeAddress!);
-      updateMessage(response.message);
+      updateMessage(response.data);
     } catch (error) {
       console.error("Error submitting Atmotube key:", error);
-      updateMessage("Error submitting Atmotube key.");
+      updateMessage({ message: "Error submitting Atmotube key.", color: "white" });
     } finally {
       setIsLoading(false);
       disappearInput(false);
