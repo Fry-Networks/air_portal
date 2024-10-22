@@ -49,16 +49,16 @@ export const NrfModal: React.FC<NrfModalProps> = ({
       <div className="flex flex-col justify-center items-center">
         <Typography className="mb-3" variant="title">Please enter Nrf credentials below:</Typography>
         <NrfInput
-          token={token}
-          setToken={setToken}
-          inputType="server"
-          placeholder="Enter API Key"
-        />
-        <NrfInput
           token={deviceIp}
           setToken={setDeviceIp}
           inputType="id"
           placeholder="Enter Device Id"
+        />
+        <NrfInput
+          token={token}
+          setToken={setToken}
+          inputType="server"
+          placeholder="Enter API Key"
         />
         <SubmitNrfKeyButton
           updateMessage={updateMessage}
